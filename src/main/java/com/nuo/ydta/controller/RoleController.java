@@ -190,10 +190,19 @@ public class RoleController {
         if (StringUtils.isBlank(roleName)) {
             return Response.create(ProjectError.PARAM_ROLENAME_IS_ERROR);
         }
-
         roleService.vote(roleName);
         return Response.create();
     }
 
+
+    @GetMapping("/role/camp/check")
+    @ResponseBody
+    @ApiOperation("检查角色是否可以修改阵营")
+    public Response campChecck(@RequestParam("serialNo")String serialNo){
+        RoleDto roleDto = roleService.getRoleBySerialNo(serialNo);
+        return Response.create(roleDto.getModifyCamp());
+    }
+
+    //todo：新增统计表，统计每轮的票数
 
 }
