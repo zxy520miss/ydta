@@ -21,6 +21,17 @@ public enum ProjectError implements IError {
     PARAM_NPC_NAME_IS_ERROR("0012","NPC名字参数异常"),
     PARAM_NPC_ADDRESS_IS_ERROR("0013","NPC地址参数异常"),
     PARAM_FAVORABILITY_IS_NULL("0013","好感度参数异常"),
+    PARAM_STAGE_NAME_IS_ERROR("0014","剧情名字参数异常"),
+    PARAM_STAGE_ID_IS_ERROR("0015","当前修改的剧情不存在"),
+    PARAM_CAMP_ID_IS_ERROR("0016","当前修改的阵营不存在"),
+    PARAM_CAMP_DESC_IS_ERROR("0017","阵营名字参数异常"),
+    PARAM_VOTE_ROUND_IS_ERROR("0018","投票轮数异常"),
+    PARAM_PLAY_ID_IS_ERROR("0019","剧本ID异常"),
+    PARAM_PLAY_STAGE_IS_ERROR("0020","剧本所属阶段异常"),
+    PARAM_PLAY_ROLE_IS_ERROR("0021","剧本所属角色异常"),
+    PARAM_PLAY_CONTENT_IS_ERROR("0022","剧本内容异常"),
+    PARAM_STATUS_IS_EXCEPTION("0023","状态异常"),
+
 
 
 
@@ -32,6 +43,15 @@ public enum ProjectError implements IError {
     ROLE_CAMP_MODIFY_ERROR("1002","更改角色阵营失败，该角色不能再进行修改"),
     STAGE_IS_NULL("1003","阶段对象为空"),
     NPC_IS_NULL("1004","NPC对象为空"),
+    CAMP_IS_NULL("1004","阵营对象为空"),
+    VOTE_ERROR("1005","投票失败"),
+    STATISTICS_IS_NULL("1006","投票对象为空"),
+    VITAL_IS_ERROR("1007","统计异常"),
+    PLAY_IS_NULL("1008","剧本为空"),
+    TASK_IS_NULL("1008","任务为空"),
+    CLEW_IS_NULL("1008","线索为空"),
+    NOTICE_IS_NULL("1008","通知为空"),
+
 
 
     /**

@@ -2,7 +2,6 @@ package com.nuo.ydta.domain;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
-
 import javax.persistence.*;
 
 @Entity

@@ -9,6 +9,7 @@ import com.nuo.ydta.dto.RoleDto;
 import com.nuo.ydta.exception.BusinessException;
 import com.nuo.ydta.repository.CampRepository;
 import com.nuo.ydta.repository.RoleRepository;
+import com.nuo.ydta.repository.StageRepository;
 import com.nuo.ydta.service.RoleService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,9 @@ public class RoleServiceImpl implements RoleService {
 
     @Autowired
     private CampRepository campRepository;
+
+    @Autowired
+    private StageRepository stageRepository;
 
     @Override
     public String findRoleBySerialNoAndStatus(String serialNo, Integer status) {
@@ -117,7 +121,21 @@ public class RoleServiceImpl implements RoleService {
             if(role == null){
                return false;
             }
-            role.setSuspicion(role.getSuspicion()+ suspicion);
+            int susp = role.getSuspicion() + suspicion;
+            if(susp > 100){
+                susp = 100;
+            }
+            if(susp< 0 ){
+                susp = 0;
+            }
+
+            if(susp>= 80 && susp != 100){
+                //todo:嫌疑值推送
+            }
+            if(role.getSuspicion() == 100){
+                //todo:嫌疑值推送
+            }
+            role.setSuspicion(susp);
             roleRepository.save(role);
             return true;
         } catch (Exception e) {
@@ -132,7 +150,21 @@ public class RoleServiceImpl implements RoleService {
             if(role == null){
                 return false;
             }
-            role.setHalo(role.getSuspicion()+ halo);
+            int h = role.getSuspicion() + halo;
+           if(h > 100){
+               h = 100;
+           }
+
+           if(h < 0 ){
+               h = 0;
+           }
+            if(h >= 60 && h != 100){
+                //todo:眩晕值推送
+            }
+            if(h == 100){
+                //todo:眩晕值推送
+            }
+            role.setHalo(h);
             roleRepository.save(role);
             return true;
         } catch (Exception e) {
@@ -149,5 +181,27 @@ public class RoleServiceImpl implements RoleService {
         } catch (Exception e) {
             throw new BusinessException(ProjectError.SYSTEM_ERROR);
         }
+    }
+
+    @Override
+    public List<Role> getRoles() {
+        List<Role> all = roleRepository.findAll();
+        return all;
+    }
+
+    @Override
+    public RoleDto voteCheck(int roleId) {
+        Optional<Role> optional = roleRepository.findById(roleId);
+        Role role = optional.get();
+        if(role == null){
+            throw new BusinessException(ProjectError.ROLE_IS_NULL);
+        }
+        //todo:获取当前轮数
+        return null;
+    }
+
+    @Override
+    public Role findRoleById(int id) {
+        return roleRepository.getOne(id);
     }
 }

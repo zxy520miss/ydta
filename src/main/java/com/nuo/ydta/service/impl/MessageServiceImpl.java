@@ -9,6 +9,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class MessageServiceImpl implements MessageService {
 
@@ -19,5 +21,10 @@ public class MessageServiceImpl implements MessageService {
     public Page<MessagePush> pageQuery(int pageIndex, int pageSize) {
         Pageable pageable = PageRequest.of(pageIndex, pageSize);
         return messageResipotory.findAll(pageable);
+    }
+
+    @Override
+    public List<MessagePush> findAllByRoleId(int roleId) {
+        return messageResipotory.findAllByRoleIdOrderByCreatedTime(roleId);
     }
 }

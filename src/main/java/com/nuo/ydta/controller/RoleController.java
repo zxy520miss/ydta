@@ -127,6 +127,20 @@ public class RoleController {
         return new Response<>(Lists.newArrayList());
     }
 
+
+    /**
+     * 查询全部角色
+     * @return
+     */
+    @GetMapping("/role/list")
+    @ResponseBody
+    @ApiOperation("查询全部角色")
+    public Response roles() {
+
+        List<Role> roles = roleService.getRoles();
+        return new Response<>(Lists.newArrayList(roles));
+    }
+
     @PostMapping("/role/camp/update")
     @ResponseBody
     @ApiOperation("修改角色阵营")
@@ -182,19 +196,6 @@ public class RoleController {
         return Response.create(ProjectError.ROLE_IS_NULL);
     }
 
-    @PostMapping("/role/vote")
-    @ResponseBody
-    @ApiOperation("投票")
-    public Response vote(@RequestParam("roleName")String roleName) {
-
-        if (StringUtils.isBlank(roleName)) {
-            return Response.create(ProjectError.PARAM_ROLENAME_IS_ERROR);
-        }
-        roleService.vote(roleName);
-        return Response.create();
-    }
-
-
     @GetMapping("/role/camp/check")
     @ResponseBody
     @ApiOperation("检查角色是否可以修改阵营")
@@ -203,6 +204,17 @@ public class RoleController {
         return Response.create(roleDto.getModifyCamp());
     }
 
-    //todo：新增统计表，统计每轮的票数
+
+    /**
+     *  获取是否可以投票
+     */
+
+    @GetMapping("/role/vote/check")
+    @ResponseBody
+    @ApiOperation("检查角色是否可以投票")
+    public Response voteChecck(@RequestParam("roleId")int roleId){
+
+        return Response.create();
+    }
 
 }

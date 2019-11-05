@@ -24,4 +24,7 @@ public class Notice extends BaseDomain {
 	@Column(nullable = false,name = "stageId")
 	private Integer stageId;
 
+	@Column(nullable = false,name = "status")
+	private int status;
+
 }

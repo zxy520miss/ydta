@@ -18,13 +18,10 @@ public class MessagePush extends BaseDomain{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@Column(nullable = false,length = 10,name = "sender")
-	private String sender;
+	@Column(length = 10,name = "roleId")
+	private int roleId;
 
-	@Column(nullable = false,length = 10,name = "recipient")
-	private String recipient;
-
-	@Column(nullable = false,length = 10,name = "type")
-	private String type;
+	@Column(length = 10,name = "stage")
+	private int  stage;
 
 }

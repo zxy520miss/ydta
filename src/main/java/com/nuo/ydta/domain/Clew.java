@@ -19,9 +19,6 @@ public class Clew extends BaseDomain {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@Column(nullable = false,name = "pushTime")
-	private Date pushTime;
-
 	@Column(nullable = false,name = "roleId")
 	private Integer roleId;
 

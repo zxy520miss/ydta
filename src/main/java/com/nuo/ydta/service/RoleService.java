@@ -4,6 +4,8 @@ import com.nuo.ydta.domain.Role;
 import com.nuo.ydta.dto.RoleDto;
 import org.springframework.data.domain.Page;
 
+import java.util.List;
+
 public interface RoleService {
 
     String findRoleBySerialNoAndStatus(String serialNo, Integer status);
@@ -48,4 +50,14 @@ public interface RoleService {
      * @return
      */
     void vote(String roleName);
+
+    List<Role> getRoles();
+
+    RoleDto voteCheck(int roleId);
+
+    /**
+     * 根据ID获取角色
+     */
+    Role findRoleById(int id);
+
 }

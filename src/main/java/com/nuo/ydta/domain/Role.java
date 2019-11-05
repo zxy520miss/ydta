@@ -20,6 +20,8 @@ public class Role extends BaseDomain{
 	private Integer id;
 	@Column(name = "modifyCamp")
 	private Boolean modifyCamp;
+	@Column(name = "vote")
+	private Boolean vote;
 	@Column(nullable = false,length = 20,name = "name")
 	private String name;
 	@Lob
@@ -37,5 +39,8 @@ public class Role extends BaseDomain{
 	private Integer halo;
 	@Column(length = 50,name = "roleDesc")
 	private String roleDesc;
+	@Column(length = 100,name = "url")
+	private String url;
+
 
 }

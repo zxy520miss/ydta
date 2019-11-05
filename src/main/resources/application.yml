@@ -28,3 +28,7 @@ spring:
 server:
   port: 8080
 
+push:
+  appKey: 499e4d2a319622d74b3f019b
+  secret: 9b1eb6065066cd8221375a59
+

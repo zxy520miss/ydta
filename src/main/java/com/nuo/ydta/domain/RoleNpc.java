@@ -16,9 +16,9 @@ public class RoleNpc extends BaseDomain{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	@Column(nullable = false,length = 10,name = "npcId")
+	@Column(length = 10,name = "npcId")
 	private Integer npcId;
-	@Column(nullable = false,length = 10,name = "roleId")
+	@Column(length = 10,name = "roleId")
 	private Integer roleId;
 	@Column(nullable = false,length = 10,name = "npcName")
 	private String npcName;

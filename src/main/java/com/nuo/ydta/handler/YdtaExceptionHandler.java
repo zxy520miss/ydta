@@ -23,8 +23,7 @@ public class YdtaExceptionHandler {
                 return Response.create(error);
             }else{
                 log.error("系统异常",e);
-                IError error = ((BusinessException) e).getError();
-                return Response.create(error);
+                return Response.create(e);
             }
         }
 

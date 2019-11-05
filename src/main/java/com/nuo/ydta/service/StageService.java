@@ -1,6 +1,8 @@
 package com.nuo.ydta.service;
 
 import com.nuo.ydta.domain.Stage;
+import com.nuo.ydta.dto.StageDto;
+
 import java.util.List;
 
 public interface StageService {
@@ -9,6 +11,8 @@ public interface StageService {
      * 查询所有阶段
      * @return
      */
+    StageDto findAllStageOldId();
+
     List<Stage> findAllStage();
 
     /**
@@ -27,8 +31,13 @@ public interface StageService {
 
     /**
      * 修改阶段状态
-     * @param index  记录修改的位置
+     * @param id  记录修改的位置
      */
-    void  updateStatus(int index );
+    void  updateStatus(int id);
+
+
+    Stage findStageById(int id);
+
+    List<Stage> getStages();
 
 }

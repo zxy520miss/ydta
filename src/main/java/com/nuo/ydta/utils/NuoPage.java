@@ -1,8 +1,8 @@
 package com.nuo.ydta.utils;
 
 public class NuoPage {
-    private final int pageIndex;
-    private final int pageSize;
+    private  int pageIndex;
+    private  int pageSize;
 
     public NuoPage() {
         this.pageIndex = 0;
@@ -15,6 +15,19 @@ public class NuoPage {
         }
         this.pageIndex = --pageIndex;
         pageSize = 10;
+    }
+
+    public NuoPage(Integer pageIndex ,Integer pageSize) {
+        if (pageIndex == null || pageIndex <= 0) {
+            pageIndex = 1;
+        }
+
+        if (pageSize == null || pageSize <= 0) {
+            pageSize = 10;
+        }else{
+            this.pageSize = pageSize;
+        }
+        this.pageIndex = --pageIndex;
     }
 
     public int pageIndex() {
