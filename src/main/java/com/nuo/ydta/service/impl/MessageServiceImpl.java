@@ -23,8 +23,17 @@ public class MessageServiceImpl implements MessageService {
         return messageResipotory.findAll(pageable);
     }
 
+
+
     @Override
-    public List<MessagePush> findAllByRoleId(int roleId) {
-        return messageResipotory.findAllByRoleIdOrderByCreatedTime(roleId);
+    public List<MessagePush> findAllBySerialNo(String serialNo) {
+        String[] serialNos = {serialNo,"-1"};
+        return messageResipotory.findAllBySerialNoInOrderByCreatedTime(serialNos);
+    }
+
+
+    @Override
+    public void save(MessagePush messagePush) {
+        messageResipotory.save(messagePush);
     }
 }

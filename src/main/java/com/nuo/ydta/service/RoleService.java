@@ -60,4 +60,11 @@ public interface RoleService {
      */
     Role findRoleById(int id);
 
+    /**
+     * 根据ID获取角色
+     */
+    Role findRoleBySerialNo(String serialNo);
+
+    void updateRoleVote(boolean isVote);
+
 }

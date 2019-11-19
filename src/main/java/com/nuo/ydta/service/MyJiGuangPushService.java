@@ -17,7 +17,7 @@ public interface MyJiGuangPushService {
 
     boolean pushAndroid(PushBean pushBean);
 
-    boolean pushAndroid(PushBean pushBean, String... registids);
+    boolean pushAndroid(PushBean pushBean, String... aliases);
 
     boolean sendPush(PushPayload pushPayload);
 }

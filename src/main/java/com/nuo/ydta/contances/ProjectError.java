@@ -31,6 +31,7 @@ public enum ProjectError implements IError {
     PARAM_PLAY_ROLE_IS_ERROR("0021","剧本所属角色异常"),
     PARAM_PLAY_CONTENT_IS_ERROR("0022","剧本内容异常"),
     PARAM_STATUS_IS_EXCEPTION("0023","状态异常"),
+    PARAM_IS_ERROR("0024","参数异常"),
 
 
 

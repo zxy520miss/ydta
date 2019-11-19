@@ -47,7 +47,7 @@ public class ClewServiceImpl implements ClewService {
     @Override
     public List<Clew> findAllByStage(int stage) {
         List<Clew> clewList = clewRepository.findAllByStageId(stage);
-        if(clewList == null || clewList.size() == 0){
+        if(clewList == null ){
             throw new BusinessException(ProjectError.CLEW_IS_NULL);
         }
         return clewList;

@@ -13,4 +13,5 @@ public interface StageRepository extends JpaRepository<Stage, Integer>, JpaSpeci
 
     List<Stage> findAllByIdIn(int[] ids);
 
+
 }

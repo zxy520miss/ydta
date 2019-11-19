@@ -12,9 +12,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,7 +24,7 @@ public class MessageController {
     @Autowired
     private MessageService messageService;
 
-    @GetMapping("/message/page")
+    @PostMapping("/message/page")
     @ResponseBody
     @ApiOperation("消息列表")
     //todo:
@@ -52,8 +50,9 @@ public class MessageController {
     @GetMapping("/message/get/role")
     @ResponseBody
     @ApiOperation("通过roleId获取消息")
-    public Response findAllByRoleId(@RequestParam("roleId") int roleId){
-        List<MessagePush> pushList = messageService.findAllByRoleId(roleId);
+    public Response findAllBySerialNo(@RequestParam("roleId") String  serialNo){
+        List<MessagePush> pushList = messageService.findAllBySerialNo(serialNo);
         return Response.create(pushList);
     }
+
 }

@@ -9,5 +9,7 @@ import java.util.List;
 
 public interface MessageResipotory extends JpaRepository<MessagePush, Integer>, JpaSpecificationExecutor<MessagePush>{
 
-    List<MessagePush> findAllByRoleIdOrderByCreatedTime(int roleId);
+    List<MessagePush> findAllBySerialNoOrderByCreatedTime(String serialNo);
+
+    List<MessagePush> findAllBySerialNoInOrderByCreatedTime(String[] serialNos);
 }

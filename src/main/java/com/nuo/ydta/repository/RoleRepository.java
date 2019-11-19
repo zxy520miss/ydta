@@ -23,4 +23,6 @@ public interface RoleRepository extends JpaRepository<Role, Integer>, JpaSpecifi
      */
     Role getRoleByName(String name);
 
+
+    Role findRoleBySerialNo(String serialNo);
 }

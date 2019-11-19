@@ -3,12 +3,17 @@ package com.nuo.ydta.controller;
 import com.google.common.collect.Lists;
 import com.nuo.ydta.contances.ProjectError;
 import com.nuo.ydta.contances.RoleGender;
+import com.nuo.ydta.contances.StageStatus;
 import com.nuo.ydta.contances.Status;
 import com.nuo.ydta.domain.Camp;
 import com.nuo.ydta.domain.Role;
+import com.nuo.ydta.domain.Stage;
 import com.nuo.ydta.dto.RoleDto;
+import com.nuo.ydta.dto.VoteDto;
+import com.nuo.ydta.exception.BaseBusinessException;
 import com.nuo.ydta.repository.CampRepository;
 import com.nuo.ydta.service.RoleService;
+import com.nuo.ydta.service.StageService;
 import com.nuo.ydta.utils.NuoPage;
 import com.nuo.ydta.utils.Response;
 import io.swagger.annotations.Api;
@@ -30,6 +35,9 @@ public class RoleController {
 
     @Autowired
     private CampRepository campRepository;
+
+    @Autowired
+    private StageService stageService;
 
     /**
      * 通过手机串号获取该手机角色的剧本
@@ -165,14 +173,14 @@ public class RoleController {
     @PostMapping("/role/suspicion/update")
     @ResponseBody
     @ApiOperation("修改角色嫌疑值")
-    public Response updateRoleSuspicion(@RequestParam("serialNo")String serialNo, @RequestParam("suspicion")int suspicion) {
-        if (StringUtils.isBlank(serialNo)) {
+    public Response updateRoleSuspicion(@RequestBody Role role) {
+        if (StringUtils.isBlank(role.getSerialNo())) {
             return Response.create(ProjectError.PARAM_SERIALNO_IS_ERROR);
         }
-        if (suspicion >= 100 || suspicion <= -100) {
+        if (role.getSuspicion() > 100 || role.getSuspicion() < -100) {
             return Response.create(ProjectError.PARAM_ROLE_SUSPICION_IS_ERROR);
         }
-        boolean flag = roleService.updateRoleSuspicion(serialNo, suspicion);
+        boolean flag = roleService.updateRoleSuspicion(role.getSerialNo(), role.getSuspicion());
         if(flag){
             return Response.create();
         }
@@ -182,14 +190,14 @@ public class RoleController {
     @PostMapping("/role/halo/update")
     @ResponseBody
     @ApiOperation("修改角色眩晕值")
-    public Response updateRoleHalo(@RequestParam("serialNo")String serialNo, @RequestParam("halo")int halo) {
-        if (StringUtils.isBlank(serialNo)) {
+    public Response updateRoleHalo(@RequestBody Role role) {
+        if (StringUtils.isBlank(role.getSerialNo())) {
             return Response.create(ProjectError.PARAM_SERIALNO_IS_ERROR);
         }
-        if (halo >= 100 || halo <= -100) {
+        if (role.getHalo() >= 100 || role.getHalo() <= -100) {
             return Response.create(ProjectError.PARAM_ROLE_SUSPICION_IS_ERROR);
         }
-        boolean flag = roleService.updateRoleHalo(serialNo, halo);
+        boolean flag = roleService.updateRoleHalo(role.getSerialNo(), role.getHalo());
         if(flag){
             return Response.create();
         }
@@ -212,9 +220,21 @@ public class RoleController {
     @GetMapping("/role/vote/check")
     @ResponseBody
     @ApiOperation("检查角色是否可以投票")
-    public Response voteChecck(@RequestParam("roleId")int roleId){
+    public Response voteChecck(@RequestParam("serialNo")String serialNo){
 
-        return Response.create();
+        if(StringUtils.isBlank(serialNo)){
+            throw new BaseBusinessException(ProjectError.PARAM_IS_ERROR);
+        }
+
+        Role role = roleService.findRoleBySerialNo(serialNo);
+        if(role.getVote()){
+            Stage stage = stageService.findLastStageByStatus(StageStatus.VISIBLE);
+            return Response.create(stage.getId());
+        }else{
+            return Response.create(-1);
+        }
     }
+
+
 
 }

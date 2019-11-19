@@ -9,5 +9,9 @@ public interface MessageService {
 
     Page<MessagePush> pageQuery(int pageIndex, int pageSize);
 
-    List<MessagePush> findAllByRoleId(int roleId);
+    List<MessagePush> findAllBySerialNo(String serialNo);
+
+    void save(MessagePush messagePush);
+
+
 }

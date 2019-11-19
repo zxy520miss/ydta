@@ -1,18 +1,19 @@
 package com.nuo.ydta.service.impl;
 
 import com.google.common.collect.Lists;
+import com.nuo.ydta.domain.PushBean;
 import com.nuo.ydta.domain.RoleNpc;
 import com.nuo.ydta.dto.RoleNpcDto;
 import com.nuo.ydta.exception.BusinessException;
 import com.nuo.ydta.repository.FavorabilityRepository;
 import com.nuo.ydta.service.FavorabilityService;
+import com.nuo.ydta.service.JiGuangPushService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -20,6 +21,9 @@ public class FavorabilityServiceImpl implements FavorabilityService {
 
     @Autowired
     private FavorabilityRepository favorabilityRepository;
+
+    @Autowired
+    private JiGuangPushService jiGuangPushService;
 
     @Override
     public List<RoleNpc> getFavorabilitys() {
@@ -148,6 +152,10 @@ public class FavorabilityServiceImpl implements FavorabilityService {
 
         if(count == 7){
             //todo:推送
+            PushBean pushBean = new PushBean();
+            pushBean.setAlert("恭喜解锁隐藏成就‘众星捧月’，可找到倏，了解被人拥戴之后的特权！");
+            pushBean.setTitle("壹點探案---好感度");
+            jiGuangPushService.pushAll(pushBean);
         }
 
         return dtoList;

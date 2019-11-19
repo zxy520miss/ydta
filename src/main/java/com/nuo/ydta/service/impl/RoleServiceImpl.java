@@ -4,12 +4,14 @@ import com.google.common.collect.Lists;
 import com.nuo.ydta.contances.ProjectError;
 import com.nuo.ydta.contances.Status;
 import com.nuo.ydta.domain.Camp;
+import com.nuo.ydta.domain.PushBean;
 import com.nuo.ydta.domain.Role;
 import com.nuo.ydta.dto.RoleDto;
 import com.nuo.ydta.exception.BusinessException;
 import com.nuo.ydta.repository.CampRepository;
 import com.nuo.ydta.repository.RoleRepository;
 import com.nuo.ydta.repository.StageRepository;
+import com.nuo.ydta.service.JiGuangPushService;
 import com.nuo.ydta.service.RoleService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +37,9 @@ public class RoleServiceImpl implements RoleService {
     @Autowired
     private StageRepository stageRepository;
 
+    @Autowired
+    private JiGuangPushService jiGuangPushService;
+
     @Override
     public String findRoleBySerialNoAndStatus(String serialNo, Integer status) {
 
@@ -54,9 +59,6 @@ public class RoleServiceImpl implements RoleService {
     public boolean save(Role role) {
         try {
             role.setModifyCamp(Boolean.TRUE);
-            role.setSuspicion(0);
-            role.setHalo(0);
-            role.setPoll(0);
             role.setStatus(Status.UNDELETE);
             roleRepository.save(role);
             return true;
@@ -130,10 +132,18 @@ public class RoleServiceImpl implements RoleService {
             }
 
             if(susp>= 80 && susp != 100){
-                //todo:嫌疑值推送
+
+                PushBean pushBean = new PushBean();
+                pushBean.setTitle("壹點探案-嫌疑值");
+                pushBean.setAlert("嫌疑值已达80，若嫌疑值持续上升，将面临入狱风险！");
+                jiGuangPushService.pushAndroid(pushBean,serialNo);
             }
-            if(role.getSuspicion() == 100){
-                //todo:嫌疑值推送
+            if(susp== 100){
+
+                PushBean pushBean = new PushBean();
+                pushBean.setTitle("壹點探案-嫌疑值");
+                pushBean.setAlert("嫌疑值已达100，狱卒即刻来押送你进入大牢！");
+                jiGuangPushService.pushAndroid(pushBean,serialNo);
             }
             role.setSuspicion(susp);
             roleRepository.save(role);
@@ -150,7 +160,7 @@ public class RoleServiceImpl implements RoleService {
             if(role == null){
                 return false;
             }
-            int h = role.getSuspicion() + halo;
+            int h = role.getHalo() + halo;
            if(h > 100){
                h = 100;
            }
@@ -160,9 +170,17 @@ public class RoleServiceImpl implements RoleService {
            }
             if(h >= 60 && h != 100){
                 //todo:眩晕值推送
+                PushBean pushBean = new PushBean();
+                pushBean.setTitle("壹點探案-眩晕值");
+                pushBean.setAlert("晕眩值已达60，若不及时进食补充营养或是减轻晕眩值可能会造成更严重的后果哦");
+                jiGuangPushService.pushAndroid(pushBean,serialNo);
             }
             if(h == 100){
                 //todo:眩晕值推送
+                PushBean pushBean = new PushBean();
+                pushBean.setTitle("壹點探案-眩晕值");
+                pushBean.setAlert("晕眩值已达100，将会强制被带走补充营养或是减轻晕眩值");
+                jiGuangPushService.pushAndroid(pushBean,serialNo);
             }
             role.setHalo(h);
             roleRepository.save(role);
@@ -176,7 +194,6 @@ public class RoleServiceImpl implements RoleService {
     public synchronized void vote(String roleName) {
         try {
             Role role = roleRepository.getRoleByName(roleName);
-            role.setPoll(role.getPoll()+1);
             roleRepository.save(role);
         } catch (Exception e) {
             throw new BusinessException(ProjectError.SYSTEM_ERROR);
@@ -203,5 +220,19 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public Role findRoleById(int id) {
         return roleRepository.getOne(id);
+    }
+
+    @Override
+    public Role findRoleBySerialNo(String serialNo) {
+        return roleRepository.findRoleBySerialNo(serialNo);
+    }
+
+    @Override
+    public void updateRoleVote(boolean isVote) {
+        List<Role> all = roleRepository.findAll();
+        for (Role role : all){
+            role.setVote(isVote);
+            roleRepository.save(role);
+        }
     }
 }

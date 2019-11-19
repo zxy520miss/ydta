@@ -40,4 +40,6 @@ public interface StageService {
 
     List<Stage> getStages();
 
+    Stage findLastStageByStatus(int status);
+
 }

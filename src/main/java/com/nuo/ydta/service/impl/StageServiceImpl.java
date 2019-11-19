@@ -3,15 +3,14 @@ package com.nuo.ydta.service.impl;
 import com.nuo.ydta.contances.ProjectError;
 import com.nuo.ydta.contances.StageStatus;
 import com.nuo.ydta.contances.Status;
-import com.nuo.ydta.domain.Clew;
-import com.nuo.ydta.domain.Play;
-import com.nuo.ydta.domain.Stage;
-import com.nuo.ydta.domain.Task;
+import com.nuo.ydta.domain.*;
 import com.nuo.ydta.dto.StageDto;
 import com.nuo.ydta.exception.BusinessException;
 import com.nuo.ydta.repository.PlayRepository;
+import com.nuo.ydta.repository.RoleRepository;
 import com.nuo.ydta.repository.StageRepository;
 import com.nuo.ydta.service.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.web.ProjectedPayload;
@@ -19,8 +18,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 @Service
+@Slf4j
 public class StageServiceImpl implements StageService {
 
     @Autowired
@@ -31,6 +33,12 @@ public class StageServiceImpl implements StageService {
     private TaskService taskService;
     @Autowired
     private ClewService clewService;
+    @Autowired
+    private PushService pushService;
+    @Autowired
+    private RoleService roleService;
+    @Autowired
+    private MessageService messageService;
 
     @Override
     public StageDto findAllStageOldId() {
@@ -47,7 +55,7 @@ public class StageServiceImpl implements StageService {
     }
 
     @Override
-    public  List<Stage> findAllStage() {
+    public List<Stage> findAllStage() {
         return stageRepository.findAll();
     }
 
@@ -64,7 +72,7 @@ public class StageServiceImpl implements StageService {
     @Override
     public void update(Stage stage) {
         try {
-             stageRepository.getOne(stage.getId());
+            stageRepository.getOne(stage.getId());
             stageRepository.save(stage);
         } catch (Exception e) {
             throw new BusinessException(e);
@@ -75,45 +83,133 @@ public class StageServiceImpl implements StageService {
     @Transactional(rollbackFor = Exception.class)
     public void updateStatus(int id) {
         try {
-        Stage stage = stageRepository.getOne(id);
-        stage.setStatus(StageStatus.VISIBLE);
-        stageRepository.save(stage);
+            String title = "壹點探案";
+            Stage stage = stageRepository.getOne(id);
+            stage.setStatus(StageStatus.VISIBLE);
+            stageRepository.save(stage);
 
-             //修改剧本的status为1（可获取状态）
+            //修改剧本的status为1（可获取状态）
             List<Play> plays = playService.findAllByStage(id);
-            if(plays == null || plays.size() == 0){
-                throw new BusinessException(ProjectError.PLAY_IS_NULL);
+            if (plays != null) {
+                for (Play play : plays) {
+                    play.setStatus(StageStatus.VISIBLE);
+                    playService.add(play);
+                }
             }
-            for (Play play: plays){
-                play.setStatus(StageStatus.VISIBLE);
-                playService.add(play);
-            }
+
             //	修改任务的status为1（可获取状态）
             List<Task> tasks = taskService.findAllByStage(id);
-            if(tasks == null || tasks.size() == 0){
-                throw new BusinessException(ProjectError.TASK_IS_NULL);
+            if (tasks != null) {
+                for (Task task : tasks) {
+                    task.setStatus(StageStatus.VISIBLE);
+                    taskService.add(task);
+                }
             }
 
-            for (Task task: tasks){
-                task.setStatus(StageStatus.VISIBLE);
-                taskService.add(task);
-            }
 
             //	todo:修改线索的status为1（可获取状态）
             List<Clew> clews = clewService.findAllByStage(id);
-            if(clews == null || clews.size() == 0){
-                throw new BusinessException(ProjectError.CLEW_IS_NULL);
-            }
-
-            for (Clew clew: clews){
-                clew.setStatus(StageStatus.VISIBLE);
-                clewService.add(clew);
+            if (clews != null) {
+                for (Clew clew : clews) {
+                    clew.setStatus(StageStatus.VISIBLE);
+                    clewService.add(clew);
+                }
             }
             //	todo:修改通知的status为1（可获取状态）
+            String msg = "";
+            switch (id) {
+                case 2:
+                    msg = "找出杀害冯律司的凶手";
+                    pushService.pushAll(title, msg);
 
+                    break;
+                case 3:
+                    msg = "客栈开放吃饭";
+                    pushService.pushAll(title, msg);
+                    break;
+                case 4:
+                    msg = "进行第1次投票，投出杀冯律司的凶手，5分钟之内请完成投票，否则视为弃票";
+                    pushService.pushAll(title, msg);
+                    updateRoleVote(true);
+                    voteTask();
+                    break;
+                case 5:
+                    msg = "您回忆起了某些事！请查出杀害周疆主的凶手";
+                    pushService.pushAll(title, msg);
+                    //根据阶段更新剧情表
+                    break;
+                case 6:
+                    msg = "店铺打样";
+                    pushService.pushAll(title, msg);
+                    break;
+                case 7:
+                    msg = "您回忆起了某些事！请查出杀害第3为位死者的凶手";
+                    pushService.pushAll(title, msg);
+                    break;
+                case 8:
+                    msg = "您拥有一次更换阵营的权利";
+                    pushService.pushAll(title, msg);
+                    break;
+                case 9:
+                    msg = "投出杀害周疆主的凶手，5分钟之内请完成投票，否则视为弃票";
+                    pushService.pushAll(title, msg);
+                    updateRoleVote(true);
+                    voteTask();
+                    break;
+                case 10:
+                    msg = "投出杀死第3位死者的凶手，5分钟之内请完成投票，否则视为弃票";
+                    pushService.pushAll(title, msg);
+                    updateRoleVote(true);
+                    voteTask();
+                    break;
+                case 11:
+                    msg = "您回忆起了某些事!";
+                    pushService.pushAll(title, msg);
+                    break;
+                case 12:
+                    msg = "店铺营业!";
+                    pushService.pushAll(title, msg);
+                    break;
+                case 13:
+                    msg = "您回忆起了某些事！请推选出新任疆主的任务!";
+                    pushService.pushAll(title, msg);
+                    break;
+                case 14:
+                    msg = "推选新任疆主，5分钟之内请完成投票，否则视为弃票!";
+                    pushService.pushAll(title, msg);
+                    updateRoleVote(true);
+                    voteTask();
+                    break;
+                default:
+                    break;
+            }
         } catch (Exception e) {
             throw new BusinessException(e);
         }
+    }
+
+    private void updateRoleVote(boolean isVote) {
+        roleService.updateRoleVote(isVote);
+    }
+
+    private void voteTask() {
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                log.debug("开始计时 -> {}", System.currentTimeMillis());
+                try {
+                    updateRoleVote(false);
+                    pushService.pushAll("壹點探案", "如果你投票成功，请忽略这条消息;如果您没有进行投票，视为弃票");
+                } catch (Exception e) {
+                    throw e;
+                } finally {
+                    timer.cancel();
+                    log.debug("结束");
+                }
+            }
+        };
+        timer.schedule(task, 300000);
     }
 
     @Override
@@ -125,8 +221,16 @@ public class StageServiceImpl implements StageService {
     @Override
     public List<Stage> getStages() {
 
-        int[] ids = {3,5,7};
+        int[] ids = {3, 5, 7};
         List<Stage> list = stageRepository.findAllByIdIn(ids);
         return list;
+    }
+
+    @Override
+    public Stage findLastStageByStatus(int status) {
+
+        Stage stage = stageRepository.findTopByStatusOrderByIdDesc(status);
+
+        return stage;
     }
 }
