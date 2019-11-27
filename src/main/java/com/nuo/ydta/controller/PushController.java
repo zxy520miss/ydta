@@ -60,11 +60,11 @@ public class PushController {
             throw new BaseBusinessException(ProjectError.PARAM_IS_ERROR);
         }
 
-        if(StringUtils.isBlank(pushDto.getAlias())){
+        if(pushDto.getRoleId() == -1){
             throw new BaseBusinessException(ProjectError.PARAM_IS_ERROR);
         }
 
-        Boolean flag = pushService.push(pushDto.getTitle(), pushDto.getContent(), pushDto.getAlias(),pushDto.getSender());
+        Boolean flag = pushService.push(pushDto.getTitle(), pushDto.getContent(), pushDto.getRoleId(),pushDto.getSender());
         return Response.create(flag);
     }
 

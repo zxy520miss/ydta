@@ -9,7 +9,7 @@ public interface MessageService {
 
     Page<MessagePush> pageQuery(int pageIndex, int pageSize);
 
-    List<MessagePush> findAllBySerialNo(String serialNo);
+    List<MessagePush> findAllByRoleId(int roleId);
 
     void save(MessagePush messagePush);
 

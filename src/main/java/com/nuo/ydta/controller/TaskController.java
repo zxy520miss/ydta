@@ -119,9 +119,8 @@ public class TaskController {
     @GetMapping("/task/roleId/status/get")
     @ResponseBody
     @ApiOperation("条件查询任务")
-    public  Response findAllByRoleIdAndStatus(@RequestParam("roleId") int roleId,
-                                              @RequestParam("status") int status){
-        List<Task> taskList = taskService.findAllByStatusAndRoleId(status, roleId);
+    public  Response findAllByRoleIdAndStatus(@RequestParam("roleId") int roleId){
+        List<Task> taskList = taskService.findAllByStatusAndRoleId(1, roleId);
         return Response.create(taskList);
 
     }

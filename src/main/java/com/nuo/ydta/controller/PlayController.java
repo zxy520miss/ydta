@@ -3,6 +3,7 @@ package com.nuo.ydta.controller;
 import com.google.common.collect.Lists;
 import com.nuo.ydta.contances.ProjectError;
 import com.nuo.ydta.contances.StageStatus;
+import com.nuo.ydta.contances.Status;
 import com.nuo.ydta.domain.Camp;
 import com.nuo.ydta.domain.Play;
 import com.nuo.ydta.domain.Role;
@@ -156,27 +157,23 @@ public Response add(@RequestBody Play play){
     /**
      * 根据状和角色查询剧本
      */
-    @PostMapping("/play/get/role")
+    @GetMapping("/play/get/role")
     @ResponseBody
     @ApiOperation("根据状和角色查询剧本")
-    public Response findPlayByroleIdAndStatus(@RequestParam("status") int status,
-                                              @RequestParam("roleId") int roleId){
-        if(status <= 0){
-            return Response.create(ProjectError.PARAM_STATUS_IS_EXCEPTION);
-        }
+    public Response findPlayByroleIdAndStatus(@RequestParam("roleId") int roleId){
+
 
         if(roleId <= 0){
             return Response.create(ProjectError.PARAM_ROLE_ID_IS_ERROR);
         }
         List<Play> playList = null;
         try {
-            playList = playService.findAllByStatusAndRoleId(status, roleId);
+            playList = playService.findAllByStatusAndRoleId(Status.VISIBLE, roleId);
         } catch (Exception e) {
             throw e;
         }
 
         return Response.create(playList);
     }
-
 
 }

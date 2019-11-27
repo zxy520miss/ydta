@@ -8,7 +8,7 @@ public class PushDto {
 
     private String title;
     private String content;
-    private String alias;
+    private int roleId;
     private String sender;
 
 }

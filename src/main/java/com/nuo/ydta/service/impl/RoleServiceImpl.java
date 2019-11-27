@@ -59,7 +59,7 @@ public class RoleServiceImpl implements RoleService {
     public boolean save(Role role) {
         try {
             role.setModifyCamp(Boolean.TRUE);
-            role.setStatus(Status.UNDELETE);
+            role.setStatus(Status.VISIBLE);
             roleRepository.save(role);
             return true;
         }catch (Exception e){
@@ -79,7 +79,7 @@ public class RoleServiceImpl implements RoleService {
     public RoleDto getRoleBySerialNo(String serialNo) {
         try {
             RoleDto roleDto = new RoleDto();
-            Role role = roleRepository.findRoleBySerialNoAndStatus(serialNo, Status.UNDELETE);
+            Role role = roleRepository.findRoleBySerialNoAndStatus(serialNo, Status.VISIBLE);
             Camp one = campRepository.getOne(role.getCamp());
             BeanUtils.copyProperties(role,roleDto,"camp");
             roleDto.setCampDesc(one.getDescription());
@@ -91,7 +91,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public boolean campCheck(String serialNo) {
-       Role role =  roleRepository.findRoleBySerialNoAndStatus(serialNo, Status.UNDELETE);
+       Role role =  roleRepository.findRoleBySerialNoAndStatus(serialNo, Status.VISIBLE);
         if(role == null){
             throw new BusinessException(ProjectError.ROLE_IS_NULL);
         }
@@ -102,7 +102,7 @@ public class RoleServiceImpl implements RoleService {
     @Transactional
     public boolean updateRoleCamp(String serialNo,String camp) {
         try {
-            Role role =  roleRepository.findRoleBySerialNoAndStatus(serialNo, Status.UNDELETE);
+            Role role =  roleRepository.findRoleBySerialNoAndStatus(serialNo, Status.VISIBLE);
             if(role == null){
                 return false;
             }
@@ -119,7 +119,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public boolean  updateRoleSuspicion(String serialNo,int suspicion) {
         try {
-            Role role =  roleRepository.findRoleBySerialNoAndStatus(serialNo, Status.UNDELETE);
+            Role role =  roleRepository.findRoleBySerialNoAndStatus(serialNo, Status.VISIBLE);
             if(role == null){
                return false;
             }
@@ -156,7 +156,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public boolean updateRoleHalo(String serialNo, int halo) {
         try {
-            Role role =  roleRepository.findRoleBySerialNoAndStatus(serialNo, Status.UNDELETE);
+            Role role =  roleRepository.findRoleBySerialNoAndStatus(serialNo, Status.VISIBLE);
             if(role == null){
                 return false;
             }

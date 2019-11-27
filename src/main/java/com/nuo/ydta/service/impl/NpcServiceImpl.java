@@ -1,7 +1,6 @@
 package com.nuo.ydta.service.impl;
 
 import com.nuo.ydta.contances.Status;
-import com.nuo.ydta.contances.Version;
 import com.nuo.ydta.domain.Npc;
 import com.nuo.ydta.exception.BusinessException;
 import com.nuo.ydta.repository.NpcRepository;
@@ -30,9 +29,7 @@ public class NpcServiceImpl implements NpcService {
     @Override
     public void delete(int id) {
         try {
-            Npc one = npcRepository.getOne(id);
-            one.setStatus(Status.DELETE);
-            npcRepository.save(one);
+            npcRepository.deleteById(id);
         } catch (Exception e) {
             throw new BusinessException(e);
         }
@@ -41,8 +38,8 @@ public class NpcServiceImpl implements NpcService {
     @Override
     public void add(Npc npc) {
         try {
-            npc.setStatus(Status.UNDELETE);
-            npc.setVersion(Version.V1);
+            npc.setStatus(Status.VISIBLE);
+            npc.setVersion("v1");
             npcRepository.save(npc);
         } catch (Exception e) {
             throw new BusinessException(e);

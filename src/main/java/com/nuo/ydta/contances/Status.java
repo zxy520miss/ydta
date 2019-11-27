@@ -3,13 +3,13 @@ package com.nuo.ydta.contances;
 public interface Status {
 
     /**
-     * 未删除
+     * 未删除，可获取
      */
-    int UNDELETE = 1;
+    int VISIBLE = 1;
 
     /**
-     * 删除
+     * 不可获取
      */
-    int DELETE = 2;
+    int INVISIBLE = 0;
 
 }

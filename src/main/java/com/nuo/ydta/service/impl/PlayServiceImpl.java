@@ -1,5 +1,6 @@
 package com.nuo.ydta.service.impl;
 
+import com.nuo.ydta.contances.Status;
 import com.nuo.ydta.domain.Play;
 import com.nuo.ydta.repository.PlayRepository;
 import com.nuo.ydta.service.PlayService;
@@ -8,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
@@ -42,7 +44,7 @@ public class PlayServiceImpl implements PlayService {
     }
 
     @Override
-    public List<Play> findAllByStage(int stage){
+    public List<Play> findAllByStage(int stage) {
         List<Play> lists = playRepository.findAllByStage(stage);
         return lists;
     }
@@ -52,4 +54,5 @@ public class PlayServiceImpl implements PlayService {
         List<Play> playList = playRepository.findAllByStatusAndRoleId(status, roleId);
         return playList;
     }
+
 }

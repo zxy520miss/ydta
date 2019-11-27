@@ -24,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @Controller
@@ -52,7 +53,7 @@ public class RoleController {
         if (StringUtils.isBlank(serialNo)) {
             return Response.create(ProjectError.PARAM_SERIALNO_IS_ERROR);
         }
-        String play = roleService.findRoleBySerialNoAndStatus(serialNo, Status.UNDELETE);
+        String play = roleService.findRoleBySerialNoAndStatus(serialNo, Status.VISIBLE);
         return Response.create(play);
     }
 
@@ -64,7 +65,7 @@ public class RoleController {
             return Response.create(ProjectError.PARAM_SERIALNO_IS_ERROR);
         }
         RoleDto roleDto = roleService.getRoleBySerialNo(serialNo);
-        if(null == roleDto){
+        if (null == roleDto) {
             return Response.create(ProjectError.ROLE_IS_NULL);
         }
         return Response.create(roleDto);
@@ -72,7 +73,8 @@ public class RoleController {
 
     /**
      * 新增/修改角色
-     *      *
+     * *
+     *
      * @param role
      * @return
      */
@@ -86,9 +88,9 @@ public class RoleController {
         if (StringUtils.isBlank(role.getPlay())) {
             return Response.create(ProjectError.PARAM_PLAY_IS_ERROR);
         }
-       if(role.getCamp()<=0){
-           return Response.create(ProjectError.PARAM_CAMP_IS_ERROR);
-       }
+        if (role.getCamp() <= 0) {
+            return Response.create(ProjectError.PARAM_CAMP_IS_ERROR);
+        }
         if (StringUtils.isBlank(role.getName())) {
             return Response.create(ProjectError.PARAM_NAME_IS_ERROR);
         }
@@ -99,6 +101,11 @@ public class RoleController {
             return Response.create(ProjectError.PARAM_GENDER_IS_ERROR);
         }
 
+        RoleDto roleDto = roleService.getRoleBySerialNo(role.getSerialNo());
+        role.setRoleDesc(roleDto.getRoleDesc());
+        role.setPoll(roleDto.getPoll());
+        role.setVote(roleDto.getVote());
+        role.setUrl(roleDto.getUrl());
         boolean flag = roleService.save(role);
         return Response.create(flag);
     }
@@ -138,6 +145,7 @@ public class RoleController {
 
     /**
      * 查询全部角色
+     *
      * @return
      */
     @GetMapping("/role/list")
@@ -181,7 +189,7 @@ public class RoleController {
             return Response.create(ProjectError.PARAM_ROLE_SUSPICION_IS_ERROR);
         }
         boolean flag = roleService.updateRoleSuspicion(role.getSerialNo(), role.getSuspicion());
-        if(flag){
+        if (flag) {
             return Response.create();
         }
         return Response.create(ProjectError.ROLE_IS_NULL);
@@ -198,7 +206,7 @@ public class RoleController {
             return Response.create(ProjectError.PARAM_ROLE_SUSPICION_IS_ERROR);
         }
         boolean flag = roleService.updateRoleHalo(role.getSerialNo(), role.getHalo());
-        if(flag){
+        if (flag) {
             return Response.create();
         }
         return Response.create(ProjectError.ROLE_IS_NULL);
@@ -207,34 +215,31 @@ public class RoleController {
     @GetMapping("/role/camp/check")
     @ResponseBody
     @ApiOperation("检查角色是否可以修改阵营")
-    public Response campChecck(@RequestParam("serialNo")String serialNo){
+    public Response campChecck(@RequestParam("serialNo") String serialNo) {
         RoleDto roleDto = roleService.getRoleBySerialNo(serialNo);
         return Response.create(roleDto.getModifyCamp());
     }
 
 
     /**
-     *  获取是否可以投票
+     * 获取是否可以投票
      */
 
     @GetMapping("/role/vote/check")
     @ResponseBody
     @ApiOperation("检查角色是否可以投票")
-    public Response voteChecck(@RequestParam("serialNo")String serialNo){
+    public Response voteChecck(@RequestParam("serialNo") String serialNo) {
 
-        if(StringUtils.isBlank(serialNo)){
+        if (StringUtils.isBlank(serialNo)) {
             throw new BaseBusinessException(ProjectError.PARAM_IS_ERROR);
         }
 
         Role role = roleService.findRoleBySerialNo(serialNo);
-        if(role.getVote()){
+        if (role.getVote()) {
             Stage stage = stageService.findLastStageByStatus(StageStatus.VISIBLE);
             return Response.create(stage.getId());
-        }else{
+        } else {
             return Response.create(-1);
         }
     }
-
-
-
 }

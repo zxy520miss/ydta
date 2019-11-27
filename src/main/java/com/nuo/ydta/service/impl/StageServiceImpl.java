@@ -88,7 +88,7 @@ public class StageServiceImpl implements StageService {
             stage.setStatus(StageStatus.VISIBLE);
             stageRepository.save(stage);
 
-            //修改剧本的status为1（可获取状态）
+            //todo:修改剧本的status为1（可获取状态）
             List<Play> plays = playService.findAllByStage(id);
             if (plays != null) {
                 for (Play play : plays) {
@@ -97,7 +97,7 @@ public class StageServiceImpl implements StageService {
                 }
             }
 
-            //	修改任务的status为1（可获取状态）
+            //	todo:根据阶段 修改任务的status为1（可获取状态）
             List<Task> tasks = taskService.findAllByStage(id);
             if (tasks != null) {
                 for (Task task : tasks) {
@@ -107,7 +107,7 @@ public class StageServiceImpl implements StageService {
             }
 
 
-            //	todo:修改线索的status为1（可获取状态）
+            //	todo:根据阶段 修改线索的status为1（可获取状态）
             List<Clew> clews = clewService.findAllByStage(id);
             if (clews != null) {
                 for (Clew clew : clews) {
@@ -115,7 +115,7 @@ public class StageServiceImpl implements StageService {
                     clewService.add(clew);
                 }
             }
-            //	todo:修改通知的status为1（可获取状态）
+            
             String msg = "";
             switch (id) {
                 case 2:

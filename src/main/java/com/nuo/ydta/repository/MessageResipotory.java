@@ -7,9 +7,9 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import java.util.List;
 
-public interface MessageResipotory extends JpaRepository<MessagePush, Integer>, JpaSpecificationExecutor<MessagePush>{
+public interface MessageResipotory extends JpaRepository<MessagePush, Integer>, JpaSpecificationExecutor<MessagePush> {
 
-    List<MessagePush> findAllBySerialNoOrderByCreatedTime(String serialNo);
+//    List<MessagePush> findAllBySerialNoOrderByCreatedTime(String serialNo);
 
-    List<MessagePush> findAllBySerialNoInOrderByCreatedTime(String[] serialNos);
+    List<MessagePush> findAllByRoleIdInOrderByCreatedTime(int[] roleIds);
 }

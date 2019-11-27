@@ -20,10 +20,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -109,21 +106,17 @@ public class ClewController {
     /**
      * 根据状和角色查询剧本
      */
-    @PostMapping("/clew/get/role")
+    @GetMapping("/clew/get/role")
     @ResponseBody
     @ApiOperation("根据状和角色查询剧本")
-    public Response findPlayByroleIdAndStatus(@RequestParam("status") int status,
-                                              @RequestParam("roleId") int roleId){
-        if(status <= 0){
-            return Response.create(ProjectError.PARAM_STATUS_IS_EXCEPTION);
-        }
+    public Response findPlayByroleIdAndStatus(@RequestParam("roleId") int roleId){
 
         if(roleId <= 0){
             return Response.create(ProjectError.PARAM_ROLE_ID_IS_ERROR);
         }
         List<Clew> clewList = null;
         try {
-            clewList = clewService.findAllByStatusAndRoleId(status, roleId);
+            clewList = clewService.findAllByStatusAndRoleId(1, roleId);
         } catch (Exception e) {
             throw e;
         }

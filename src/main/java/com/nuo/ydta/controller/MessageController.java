@@ -50,8 +50,8 @@ public class MessageController {
     @GetMapping("/message/get/role")
     @ResponseBody
     @ApiOperation("通过roleId获取消息")
-    public Response findAllBySerialNo(@RequestParam("roleId") String  serialNo){
-        List<MessagePush> pushList = messageService.findAllBySerialNo(serialNo);
+    public Response findAllBySerialNo(@RequestParam("roleId") int  roleId){
+        List<MessagePush> pushList = messageService.findAllByRoleId(roleId);
         return Response.create(pushList);
     }
 

@@ -18,8 +18,8 @@ public class MessagePush extends BaseDomain{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@Column(length = 20,name = "serialNo")
-	private String serialNo;
+	@Column(name = "roleId")
+	private int roleId;
 
 	@Column(length = 20,name = "title")
 	private String title;

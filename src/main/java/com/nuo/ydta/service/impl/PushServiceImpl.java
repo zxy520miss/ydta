@@ -25,15 +25,15 @@ public class PushServiceImpl implements PushService {
     private JiGuangPushService jiGuangPushService;
 
     @Override
-    public Boolean push(String title, String content, String alias,String sender) {
+    public Boolean push(String title, String content, int roleId,String sender) {
 
-        Role role = roleService.findRoleBySerialNo(alias);
+        Role role = roleService.findRoleById(roleId);
 
         MessagePush messagePush = new MessagePush();
         messagePush.setContent(content);
         messagePush.setSender(StringUtils.isBlank(sender)?"系统":sender);
         messagePush.setRecipient(role.getName());
-        messagePush.setSerialNo(alias);
+        messagePush.setRoleId(roleId);
 //        messagePush.setType(StringUtils.isBlank(type)?"SYSTEM":type);
         messagePush.setTitle(title);
 
@@ -42,7 +42,7 @@ public class PushServiceImpl implements PushService {
         PushBean pushBean = new PushBean();
         pushBean.setTitle(title);
         pushBean.setAlert(content);
-        boolean flag = jiGuangPushService.pushAndroid(pushBean);
+        boolean flag = jiGuangPushService.pushAndroid(pushBean,String.valueOf(roleId));
         return flag;
     }
 
@@ -55,7 +55,7 @@ public class PushServiceImpl implements PushService {
         messagePush.setRecipient("ALL");
 //        messagePush.setType(StringUtils.isBlank(type)?"SYSTEM":type);
         messagePush.setTitle(title);
-        messagePush.setSerialNo("-1");
+        messagePush.setRoleId(-1);
         messageService.save(messagePush);
         PushBean pushBean = new PushBean();
         pushBean.setTitle(title);

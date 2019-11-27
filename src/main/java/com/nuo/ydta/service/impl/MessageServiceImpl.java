@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -24,11 +25,10 @@ public class MessageServiceImpl implements MessageService {
     }
 
 
-
     @Override
-    public List<MessagePush> findAllBySerialNo(String serialNo) {
-        String[] serialNos = {serialNo,"-1"};
-        return messageResipotory.findAllBySerialNoInOrderByCreatedTime(serialNos);
+    public List<MessagePush> findAllByRoleId(int roleId) {
+        int[] roleIds = {roleId, -1};
+        return messageResipotory.findAllByRoleIdInOrderByCreatedTime(roleIds);
     }
 
 
