@@ -11,5 +11,5 @@ public interface MessageResipotory extends JpaRepository<MessagePush, Integer>, 
 
 //    List<MessagePush> findAllBySerialNoOrderByCreatedTime(String serialNo);
 
-    List<MessagePush> findAllByRoleIdInOrderByCreatedTime(int[] roleIds);
+    List<MessagePush> findAllByRoleIdInOrderByCreatedTimeDesc(int[] roleIds);
 }

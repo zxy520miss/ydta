@@ -28,7 +28,7 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public List<MessagePush> findAllByRoleId(int roleId) {
         int[] roleIds = {roleId, -1};
-        return messageResipotory.findAllByRoleIdInOrderByCreatedTime(roleIds);
+        return messageResipotory.findAllByRoleIdInOrderByCreatedTimeDesc(roleIds);
     }
 
 

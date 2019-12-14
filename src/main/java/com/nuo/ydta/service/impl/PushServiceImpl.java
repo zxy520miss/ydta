@@ -4,6 +4,7 @@ import com.nuo.ydta.contances.Status;
 import com.nuo.ydta.domain.MessagePush;
 import com.nuo.ydta.domain.PushBean;
 import com.nuo.ydta.domain.Role;
+import com.nuo.ydta.dto.RoleDto;
 import com.nuo.ydta.service.JiGuangPushService;
 import com.nuo.ydta.service.MessageService;
 import com.nuo.ydta.service.PushService;
@@ -27,7 +28,7 @@ public class PushServiceImpl implements PushService {
     @Override
     public Boolean push(String title, String content, int roleId,String sender) {
 
-        Role role = roleService.findRoleById(roleId);
+        Role role = roleService.getRoleById(roleId);
 
         MessagePush messagePush = new MessagePush();
         messagePush.setContent(content);

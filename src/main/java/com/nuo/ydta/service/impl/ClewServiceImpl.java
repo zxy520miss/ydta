@@ -57,9 +57,9 @@ public class ClewServiceImpl implements ClewService {
     public List<Clew> findAllByStatusAndRoleId(int status, int roleId) {
 
         List<Clew> clewList = clewRepository.findAllByStatusAndRoleId(status, roleId);
-        if(clewList == null || clewList.size() == 0){
-            throw new BusinessException(ProjectError.CLEW_IS_NULL);
-        }
+//        if(clewList == null || clewList.size() == 0){
+//            throw new BusinessException(ProjectError.CLEW_IS_NULL);
+//        }
         return clewList;
     }
 }

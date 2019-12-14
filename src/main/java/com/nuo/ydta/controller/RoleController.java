@@ -101,7 +101,7 @@ public class RoleController {
             return Response.create(ProjectError.PARAM_GENDER_IS_ERROR);
         }
 
-        RoleDto roleDto = roleService.getRoleBySerialNo(role.getSerialNo());
+        RoleDto roleDto = roleService.findRoleById(role.getId());
         role.setRoleDesc(roleDto.getRoleDesc());
         role.setPoll(roleDto.getPoll());
         role.setVote(roleDto.getVote());

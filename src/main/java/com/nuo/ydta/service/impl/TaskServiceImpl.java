@@ -1,10 +1,13 @@
 package com.nuo.ydta.service.impl;
 
 import com.nuo.ydta.contances.ProjectError;
+import com.nuo.ydta.domain.Stage;
 import com.nuo.ydta.domain.Task;
 import com.nuo.ydta.exception.BaseBusinessException;
 import com.nuo.ydta.exception.BusinessException;
+import com.nuo.ydta.repository.StageRepository;
 import com.nuo.ydta.repository.TaskRepository;
+import com.nuo.ydta.service.StageService;
 import com.nuo.ydta.service.TaskService;
 import com.sun.org.apache.bcel.internal.generic.NEW;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +25,7 @@ public class TaskServiceImpl implements TaskService {
     @Autowired
     private TaskRepository taskRepository;
 
+
     @Override
     public Page<Task> queryPage(int pageIndex, int pageSize) {
         Pageable pageable = PageRequest.of(pageIndex, pageSize);
@@ -36,9 +40,9 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public void update(Task task) {
         boolean exists = taskRepository.existsById(task.getId());
-        if(exists){
+        if (exists) {
             taskRepository.save(task);
-        }else{
+        } else {
             throw new BusinessException(ProjectError.TASK_IS_NULL);
         }
 
@@ -52,7 +56,18 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public List<Task> findAllByStatusAndRoleId(int status, int roleId) {
 
-        List<Task> taskList = taskRepository.findAllByStatusAndRoleId(status, roleId);
+
+        List<Task> taskList = null;
+        int[] roleIds = {0, roleId};
+        taskList = taskRepository.findAllByStatusAndRoleIdIn(status, roleIds);
+
+        if(roleId == 3){
+            Task task = taskRepository.findByDescription("查出杀害冯律司的凶手");
+            taskList.remove(task);
+        }else if (roleId == 15){
+            Task task = taskRepository.findByDescription("查出杀害周疆主的凶手");
+            taskList.remove(task);
+        }
         return taskList;
     }
 

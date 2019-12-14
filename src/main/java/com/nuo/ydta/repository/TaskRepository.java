@@ -8,8 +8,12 @@ import java.util.List;
 
 public interface TaskRepository extends JpaRepository<Task, Integer>, JpaSpecificationExecutor<Task> {
 
+    List<Task> findAllByStatusAndRoleIdIn(int status,int[] roleIds);
+
     List<Task> findAllByStatusAndRoleId(int status,int roleId);
 
     List<Task> findAllByStageId(int stageId);
+
+    Task findByDescription(String desc);
 
 }

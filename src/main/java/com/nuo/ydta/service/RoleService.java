@@ -53,12 +53,12 @@ public interface RoleService {
 
     List<Role> getRoles();
 
-    RoleDto voteCheck(int roleId);
+//    RoleDto voteCheck(int roleId);
 
     /**
      * 根据ID获取角色
      */
-    Role findRoleById(int id);
+    RoleDto findRoleById(int id);
 
     /**
      * 根据ID获取角色
@@ -66,5 +66,7 @@ public interface RoleService {
     Role findRoleBySerialNo(String serialNo);
 
     void updateRoleVote(boolean isVote);
+
+    Role getRoleById(int id);
 
 }

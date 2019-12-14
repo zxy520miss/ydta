@@ -204,20 +204,29 @@ public class RoleServiceImpl implements RoleService {
         return all;
     }
 
-    @Override
-    public RoleDto voteCheck(int roleId) {
-        Optional<Role> optional = roleRepository.findById(roleId);
-        Role role = optional.get();
-        if(role == null){
-            throw new BusinessException(ProjectError.ROLE_IS_NULL);
-        }
-        //todo:获取当前轮数
-        return null;
-    }
+//    @Override
+//    public RoleDto voteCheck(int roleId) {
+//        Optional<Role> optional = roleRepository.findById(roleId);
+//        Role role = optional.get();
+//        if(role == null){
+//            throw new BusinessException(ProjectError.ROLE_IS_NULL);
+//        }
+//        return null;
+//    }
 
     @Override
-    public Role findRoleById(int id) {
-        return roleRepository.getOne(id);
+    public RoleDto findRoleById(int id) {
+        try {
+            RoleDto roleDto = new RoleDto();
+            Optional<Role> op = roleRepository.findById(id);
+            Role role = op.get();
+            Camp one = campRepository.getOne(role.getCamp());
+            BeanUtils.copyProperties(role,roleDto,"camp");
+            roleDto.setCampDesc(one.getDescription());
+            return roleDto;
+        } catch (Exception e) {
+            throw new BusinessException(ProjectError.GET_ROLE_ERROR);
+        }
     }
 
     @Override
@@ -232,5 +241,10 @@ public class RoleServiceImpl implements RoleService {
             role.setVote(isVote);
             roleRepository.save(role);
         }
+    }
+
+    @Override
+    public Role getRoleById(int id) {
+        return roleRepository.findById(id).get();
     }
 }

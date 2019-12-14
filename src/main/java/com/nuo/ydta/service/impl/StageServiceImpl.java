@@ -10,6 +10,7 @@ import com.nuo.ydta.repository.PlayRepository;
 import com.nuo.ydta.repository.RoleRepository;
 import com.nuo.ydta.repository.StageRepository;
 import com.nuo.ydta.service.*;
+import com.sun.org.apache.bcel.internal.generic.NEW;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -119,8 +120,20 @@ public class StageServiceImpl implements StageService {
             String msg = "";
             switch (id) {
                 case 2:
-                    msg = "找出杀害冯律司的凶手";
-                    pushService.pushAll(title, msg);
+                    msg = "找出杀害7冯律司的凶手";
+                    String finalMsg1 = msg;
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            for(int i = 1;i<=16;i++){
+                                if(i == 3){
+                                    continue;
+                                }
+                                pushService.push(title, finalMsg1,i,"系统");
+                            }
+                        }
+                    }).start();
+
 
                     break;
                 case 3:
@@ -135,7 +148,19 @@ public class StageServiceImpl implements StageService {
                     break;
                 case 5:
                     msg = "您回忆起了某些事！请查出杀害周疆主的凶手";
-                    pushService.pushAll(title, msg);
+                    String finalMsg = msg;
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            for(int i = 1;i<=16;i++){
+                                if(i == 15){
+                                    continue;
+                                }
+                                pushService.push(title, finalMsg,i,"系统");
+                            }
+                        }
+                    }).start();
+
                     //根据阶段更新剧情表
                     break;
                 case 6:
