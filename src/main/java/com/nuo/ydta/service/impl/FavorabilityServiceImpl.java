@@ -151,7 +151,6 @@ public class FavorabilityServiceImpl implements FavorabilityService {
         }
 
         if(count == 7){
-            //todo:推送
             PushBean pushBean = new PushBean();
             pushBean.setAlert("恭喜解锁隐藏成就‘众星捧月’，可找到倏，了解被人拥戴之后的特权！");
             pushBean.setTitle("壹點探案---好感度");

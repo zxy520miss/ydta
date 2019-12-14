@@ -2,12 +2,16 @@ package com.nuo.ydta.controller;
 
 
 import com.nuo.ydta.contances.ProjectError;
+import com.nuo.ydta.contances.Status;
+import com.nuo.ydta.domain.Stage;
 import com.nuo.ydta.domain.Statistics;
 import com.nuo.ydta.dto.StatisticsDto;
+import com.nuo.ydta.service.StageService;
 import com.nuo.ydta.service.VoteService;
 import com.nuo.ydta.utils.Response;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,15 +19,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import java.util.List;
 
 @Controller
 @Api(description = "投票管理")
+@Slf4j
 public class VoteController {
 
     @Autowired
     private VoteService voteService;
+
+    @Autowired
+    private StageService stageService;
 
     /**
      * 投票
@@ -43,6 +50,10 @@ public class VoteController {
         if(StringUtils.isBlank(statistics.getSerialNo())){
             Response.create(ProjectError.PARAM_SERIALNO_IS_ERROR);
         }
+
+        Stage stage = stageService.findLastStageByStatus(Status.VISIBLE);
+        log.debug("round -> {}",stage.getId());
+        statistics.setRound(stage.getId());
 
         try {
             voteService.vote(statistics);

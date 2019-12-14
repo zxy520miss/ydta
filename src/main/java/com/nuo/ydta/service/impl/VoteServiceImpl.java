@@ -27,7 +27,7 @@ public class VoteServiceImpl implements VoteService {
     @Transactional
     public void vote(Statistics statistics) {
 
-        Statistics s = voteRepository.findBySerialNo(statistics.getSerialNo());
+        Statistics s = voteRepository.findByRoleNameAndRound(statistics.getRoleName(),statistics.getRound());
 
         if(s != null){
             s.setPoll(s.getPoll()+1);

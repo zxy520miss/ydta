@@ -1,6 +1,5 @@
 package com.nuo.ydta.service.impl;
 
-import com.google.common.collect.Lists;
 import com.nuo.ydta.contances.ProjectError;
 import com.nuo.ydta.contances.Status;
 import com.nuo.ydta.domain.Camp;
@@ -20,8 +19,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -136,14 +133,15 @@ public class RoleServiceImpl implements RoleService {
                 PushBean pushBean = new PushBean();
                 pushBean.setTitle("壹點探案-嫌疑值");
                 pushBean.setAlert("嫌疑值已达80，若嫌疑值持续上升，将面临入狱风险！");
-                jiGuangPushService.pushAndroid(pushBean,serialNo);
+                jiGuangPushService.pushAndroid(pushBean,role.getId()+"");
             }
+
             if(susp== 100){
 
                 PushBean pushBean = new PushBean();
                 pushBean.setTitle("壹點探案-嫌疑值");
                 pushBean.setAlert("嫌疑值已达100，狱卒即刻来押送你进入大牢！");
-                jiGuangPushService.pushAndroid(pushBean,serialNo);
+                jiGuangPushService.pushAndroid(pushBean,role.getId()+"");
             }
             role.setSuspicion(susp);
             roleRepository.save(role);

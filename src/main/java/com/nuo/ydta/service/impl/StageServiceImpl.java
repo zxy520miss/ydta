@@ -139,7 +139,7 @@ public class StageServiceImpl implements StageService {
                     //根据阶段更新剧情表
                     break;
                 case 6:
-                    msg = "店铺打样";
+                    msg = "星焰、益寿堂、姜氏铁铺、百荟铺将会在22点30分打样";
                     pushService.pushAll(title, msg);
                     break;
                 case 7:
@@ -147,7 +147,7 @@ public class StageServiceImpl implements StageService {
                     pushService.pushAll(title, msg);
                     break;
                 case 8:
-                    msg = "您拥有一次更换阵营的权利";
+                    msg = "您回忆起了某些事！获得一次更换阵营的权利";
                     pushService.pushAll(title, msg);
                     break;
                 case 9:
@@ -167,7 +167,7 @@ public class StageServiceImpl implements StageService {
                     pushService.pushAll(title, msg);
                     break;
                 case 12:
-                    msg = "店铺营业!";
+                    msg = "醉尘阁、夏晗居、星焰、益寿堂、姜氏铁铺、百荟铺开始营业!";
                     pushService.pushAll(title, msg);
                     break;
                 case 13:
