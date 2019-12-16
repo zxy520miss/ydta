@@ -198,7 +198,7 @@ public class FavorabilityServiceImpl implements FavorabilityService {
                 }
             } else {
                 if (dto.getFavorability() <= 10) {
-                    dto.setDesc("与周疆主好感度已低至10，若与周疆主好感度继续下降，将面临杖刑责罚！");
+                    dto.setDesc("警告与周疆主好感度已低至10，若与周疆主好感度继续下降，将面临杖刑责罚！");
                 }
             }
 
@@ -208,7 +208,7 @@ public class FavorabilityServiceImpl implements FavorabilityService {
 
             if (dto.getNpcName().equals("乔乔")) {
                 if (dto.getFavorability() <= 10) {
-                    dto.setDesc("恭喜与乔乔好感度已低至10，若与乔乔好感度继续下降，在百荟铺购买任意商品将支付两倍价格！");
+                    dto.setDesc("警告与乔乔好感度已低至10，若与乔乔好感度继续下降，在百荟铺购买任意商品将支付两倍价格！");
                 } else if (dto.getFavorability() >= 80) {
                     dto.setDesc("恭喜与乔乔好感度已达80，可获得在百荟铺购买商品享受优惠的特权！");
                 }
@@ -216,39 +216,39 @@ public class FavorabilityServiceImpl implements FavorabilityService {
 
             if (dto.getNpcName().equals("薛瑞")) {
                 if (dto.getFavorability() <= 10) {
-                    dto.setDesc("恭喜与薛瑞好感度已低至10，若与薛瑞好感度持续下降，在凝宝斋的任意交易将付出双倍代价！");
+                    dto.setDesc("警告与薛瑞好感度已低至10，若与薛瑞好感度持续下降，在凝宝斋的任意交易将付出双倍代价！");
                 }
             }
 
             if (dto.getNpcName().equals("寒星")) {
                 if (dto.getFavorability() <= 10) {
-                    dto.setDesc("恭喜与寒星好感度已低至10，若与寒星好感度继续下降，在星焰将会受到意想不到的代价或惩罚！");
+                    dto.setDesc("警告与寒星好感度已低至10，若与寒星好感度继续下降，在星焰将会受到意想不到的代价或惩罚！");
                 }
             }
 
             if (dto.getNpcName().equals("倏")) {
                 if (dto.getFavorability() <= 10) {
-                    dto.setDesc("恭喜与倏好感度已低至10，若与倏好感度继续下降，将失去在益寿堂降低嫌疑值的机会！");
+                    dto.setDesc("警告与倏好感度已低至10，若与倏好感度继续下降，将失去在益寿堂降低嫌疑值的机会！");
                 }
             }
 
             if (dto.getNpcName().equals("姜良")) {
                 if (dto.getFavorability() <= 10) {
-                    dto.setDesc("恭喜与姜良好感度已低至10，若与姜良好感度继续下降，将在姜氏铁铺面临意想不到的代价或惩罚！");
+                    dto.setDesc("警告与姜良好感度已低至10，若与姜良好感度继续下降，将在姜氏铁铺面临意想不到的代价或惩罚！");
                 }
             }
 
 
             if (dto.getNpcName().equals("玉儿")) {
                 if (dto.getFavorability() <= 10) {
-                    dto.setDesc("恭喜与玉儿好感度已低至10，若与玉儿好感度继续下降，将在醉尘阁面临意想不到的代价或惩罚！");
+                    dto.setDesc("警告与玉儿好感度已低至10，若与玉儿好感度继续下降，将在醉尘阁面临意想不到的代价或惩罚！");
                 }
             }
 
 
             if (dto.getNpcName().equals("天华")) {
                 if (dto.getFavorability() <= 10) {
-                    dto.setDesc("恭喜与天华好感度已低至10，若与天华好感度继续下降，将在乐坊面临意想不到的代价或惩罚！");
+                    dto.setDesc("警告与天华好感度已低至10，若与天华好感度继续下降，将在乐坊面临意想不到的代价或惩罚！");
                 }
             }
 
