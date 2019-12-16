@@ -109,23 +109,24 @@ public class StageServiceImpl implements StageService {
                     clewService.add(clew);
                 }
             }
-            
+
             String msg = "";
             switch (id) {
                 case 2:
                     msg = "找出杀害7冯律司的凶手";
-                    String finalMsg1 = msg;
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            for(int i = 1;i<=16;i++){
-                                if(i == 3){
-                                    continue;
-                                }
-                                pushService.push(title, finalMsg1,i,"系统");
-                            }
-                        }
-                    }).start();
+                    //                    String finalMsg1 = msg;
+//                    new Thread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            for(int i = 1;i<=16;i++){
+//                                if(i == 3){
+//                                    continue;
+//                                }
+//                                pushService.push(title, finalMsg1,i,"系统");
+//                            }
+//                        }
+//                    }).start();
+                    pushService.pushAll(title, msg);
 
 
                     break;
@@ -142,17 +143,19 @@ public class StageServiceImpl implements StageService {
                 case 5:
                     msg = "您回忆起了某些事！请查出杀害周疆主的凶手";
                     String finalMsg = msg;
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            for(int i = 1;i<=16;i++){
-                                if(i == 15){
-                                    continue;
-                                }
-                                pushService.push(title, finalMsg,i,"系统");
-                            }
-                        }
-                    }).start();
+                    //                    String finalMsg = msg;
+//                    new Thread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            for(int i = 1;i<=16;i++){
+//                                if(i == 15){
+//                                    continue;
+//                                }
+//                                pushService.push(title, finalMsg,i,"系统");
+//                            }
+//                        }
+//                    }).start();
+                    pushService.pushAll(title, msg);
 
                     //根据阶段更新剧情表
                     break;
@@ -239,7 +242,7 @@ public class StageServiceImpl implements StageService {
     @Override
     public List<Stage> getStages() {
 
-        int[] ids = {3, 5, 7};
+        int[] ids = {5, 7, 8, 11, 13};
         List<Stage> list = stageRepository.findAllByIdIn(ids);
         return list;
     }

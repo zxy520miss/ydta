@@ -28,8 +28,10 @@ public class PlayServiceImpl implements PlayService {
     @Override
     public void update(Play play) {
 
-        playRepository.getOne(play.getId());
-        playRepository.save(play);
+        Play one = playRepository.getOne(play.getId());
+        one.setContent(play.getContent());
+        one.setStatus(play.getStatus());
+        playRepository.save(one);
 
     }
 

@@ -2,9 +2,12 @@ package com.nuo.ydta.controller;
 
 import com.google.common.collect.Lists;
 import com.nuo.ydta.contances.ProjectError;
+import com.nuo.ydta.domain.Role;
 import com.nuo.ydta.domain.RoleNpc;
 import com.nuo.ydta.dto.RoleNpcDto;
 import com.nuo.ydta.service.FavorabilityService;
+import com.nuo.ydta.service.PushService;
+import com.nuo.ydta.service.RoleService;
 import com.nuo.ydta.utils.NuoPage;
 import com.nuo.ydta.utils.Response;
 import io.swagger.annotations.Api;
@@ -23,6 +26,11 @@ public class FavorabilityController {
 
     @Autowired
     private FavorabilityService favorabilityService;
+    @Autowired
+    private RoleService roleService;
+
+    @Autowired
+    private PushService pushService;
 
     @GetMapping("/favorabilitys/get")
     @ResponseBody
@@ -47,6 +55,12 @@ public class FavorabilityController {
             return Response.create(ProjectError.PARAM_FAVORABILITY_IS_NULL);
         }
         favorabilityService.updategetFavorabilitys(roleNpc.getRoleName(),roleNpc.getNpcName(),roleNpc.getFavorability());
+        Role role = roleService.getRoleByName(roleNpc.getRoleName());
+        if (roleNpc.getFavorability() > 0) {
+            pushService.push("壹點探案", "你和" + roleNpc.getNpcName() + "好感度增加" + roleNpc.getFavorability(), role.getId(), roleNpc.getNpcName());
+        } else {
+            pushService.push("壹點探案", "你和" + roleNpc.getNpcName() + "好感度降低" + Math.abs(roleNpc.getFavorability()), role.getId(), roleNpc.getNpcName());
+        }
 
         return Response.create();
     }

@@ -18,6 +18,7 @@ import com.nuo.ydta.utils.NuoPage;
 import com.nuo.ydta.utils.Response;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,7 @@ import java.util.List;
 
 @Controller
 @Api(description = "角色管理")
+@Slf4j
 public class RoleController {
 
     @Autowired
@@ -61,6 +63,7 @@ public class RoleController {
     @ResponseBody
     @ApiOperation("获取单个角色")
     public Response getRoleById(@RequestParam("serialNo") String serialNo) {
+        log.info("serialNo -> {}",serialNo);
         if (StringUtils.isBlank(serialNo)) {
             return Response.create(ProjectError.PARAM_SERIALNO_IS_ERROR);
         }

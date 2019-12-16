@@ -16,6 +16,8 @@ public interface RoleService {
 
     RoleDto getRoleBySerialNo(String serialNo);
 
+    Role getRoleByName(String name);
+
     /**
      * 检查该角色是否可以修改阵营
      * @param serialNo

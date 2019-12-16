@@ -12,6 +12,7 @@ import com.nuo.ydta.repository.RoleRepository;
 import com.nuo.ydta.repository.StageRepository;
 import com.nuo.ydta.service.JiGuangPushService;
 import com.nuo.ydta.service.RoleService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,10 +20,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class RoleServiceImpl implements RoleService {
 
     @Autowired
@@ -43,13 +46,13 @@ public class RoleServiceImpl implements RoleService {
         Role role;
         try {
             role = roleRepository.findRoleBySerialNoAndStatus(serialNo, status);
-            if(role == null){
+            if (role == null) {
                 throw new BusinessException(ProjectError.ROLE_IS_NULL);
             }
-            return role.getPlay() ;
+            return role.getPlay();
         } catch (Exception e) {
         }
-        return null ;
+        return null;
     }
 
     @Override
@@ -59,14 +62,14 @@ public class RoleServiceImpl implements RoleService {
             role.setStatus(Status.VISIBLE);
             roleRepository.save(role);
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
             return false;
         }
     }
 
 
     @Override
-    public Page<Role> pageQuery(int pageIndex,int pageSize) {
+    public Page<Role> pageQuery(int pageIndex, int pageSize) {
         Pageable pageable = PageRequest.of(pageIndex, pageSize);
         return roleRepository.findAll(pageable);
     }
@@ -75,10 +78,11 @@ public class RoleServiceImpl implements RoleService {
     @Transactional(rollbackFor = Exception.class)
     public RoleDto getRoleBySerialNo(String serialNo) {
         try {
+            log.info("serialNo -> {}", serialNo);
             RoleDto roleDto = new RoleDto();
             Role role = roleRepository.findRoleBySerialNoAndStatus(serialNo, Status.VISIBLE);
             Camp one = campRepository.getOne(role.getCamp());
-            BeanUtils.copyProperties(role,roleDto,"camp");
+            BeanUtils.copyProperties(role, roleDto, "camp");
             roleDto.setCampDesc(one.getDescription());
             return roleDto;
         } catch (Exception e) {
@@ -87,9 +91,14 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+    public Role getRoleByName(String name) {
+        return roleRepository.getRoleByName(name);
+    }
+
+    @Override
     public boolean campCheck(String serialNo) {
-       Role role =  roleRepository.findRoleBySerialNoAndStatus(serialNo, Status.VISIBLE);
-        if(role == null){
+        Role role = roleRepository.findRoleBySerialNoAndStatus(serialNo, Status.VISIBLE);
+        if (role == null) {
             throw new BusinessException(ProjectError.ROLE_IS_NULL);
         }
         return role.getModifyCamp();
@@ -97,10 +106,10 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     @Transactional
-    public boolean updateRoleCamp(String serialNo,String camp) {
+    public boolean updateRoleCamp(String serialNo, String camp) {
         try {
-            Role role =  roleRepository.findRoleBySerialNoAndStatus(serialNo, Status.VISIBLE);
-            if(role == null){
+            Role role = roleRepository.findRoleBySerialNoAndStatus(serialNo, Status.VISIBLE);
+            if (role == null) {
                 return false;
             }
             Camp c = campRepository.findByDescription(camp);
@@ -109,39 +118,46 @@ public class RoleServiceImpl implements RoleService {
             roleRepository.save(role);
             return true;
         } catch (Exception e) {
-           throw new BusinessException(e);
+            throw new BusinessException(e);
         }
     }
 
     @Override
-    public boolean  updateRoleSuspicion(String serialNo,int suspicion) {
+    public boolean updateRoleSuspicion(String serialNo, int suspicion) {
         try {
-            Role role =  roleRepository.findRoleBySerialNoAndStatus(serialNo, Status.VISIBLE);
-            if(role == null){
-               return false;
+            Role role = roleRepository.findRoleBySerialNoAndStatus(serialNo, Status.VISIBLE);
+            if (role == null) {
+                return false;
             }
             int susp = role.getSuspicion() + suspicion;
-            if(susp > 100){
+            if (susp > 100) {
                 susp = 100;
             }
-            if(susp< 0 ){
+            if (susp < 0) {
                 susp = 0;
             }
 
-            if(susp>= 80 && susp != 100){
+            if (susp >= 40 && susp <= 80) {
+                PushBean pushBean = new PushBean();
+                pushBean.setTitle("壹點探案-嫌疑值");
+                pushBean.setAlert("嫌疑值已达40，您的嫌疑值正在上升哦！");
+                jiGuangPushService.pushAndroid(pushBean, role.getId() + "");
+            }
+
+            if (susp >= 80 && susp != 100) {
 
                 PushBean pushBean = new PushBean();
                 pushBean.setTitle("壹點探案-嫌疑值");
                 pushBean.setAlert("嫌疑值已达80，若嫌疑值持续上升，将面临入狱风险！");
-                jiGuangPushService.pushAndroid(pushBean,role.getId()+"");
+                jiGuangPushService.pushAndroid(pushBean, role.getId() + "");
             }
 
-            if(susp== 100){
+            if (susp == 100) {
 
                 PushBean pushBean = new PushBean();
                 pushBean.setTitle("壹點探案-嫌疑值");
                 pushBean.setAlert("嫌疑值已达100，狱卒即刻来押送你进入大牢！");
-                jiGuangPushService.pushAndroid(pushBean,role.getId()+"");
+                jiGuangPushService.pushAndroid(pushBean, role.getId() + "");
             }
             role.setSuspicion(susp);
             roleRepository.save(role);
@@ -154,31 +170,31 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public boolean updateRoleHalo(String serialNo, int halo) {
         try {
-            Role role =  roleRepository.findRoleBySerialNoAndStatus(serialNo, Status.VISIBLE);
-            if(role == null){
+            Role role = roleRepository.findRoleBySerialNoAndStatus(serialNo, Status.VISIBLE);
+            if (role == null) {
                 return false;
             }
             int h = role.getHalo() + halo;
-           if(h > 100){
-               h = 100;
-           }
+            if (h > 100) {
+                h = 100;
+            }
 
-           if(h < 0 ){
-               h = 0;
-           }
-            if(h >= 60 && h != 100){
+            if (h < 0) {
+                h = 0;
+            }
+            if (h >= 60 && h != 100) {
                 //todo:眩晕值推送
                 PushBean pushBean = new PushBean();
                 pushBean.setTitle("壹點探案-眩晕值");
                 pushBean.setAlert("晕眩值已达60，若不及时进食补充营养或是减轻晕眩值可能会造成更严重的后果哦");
-                jiGuangPushService.pushAndroid(pushBean,serialNo);
+                jiGuangPushService.pushAndroid(pushBean, role.getId() + "");
             }
-            if(h == 100){
+            if (h == 100) {
                 //todo:眩晕值推送
                 PushBean pushBean = new PushBean();
                 pushBean.setTitle("壹點探案-眩晕值");
                 pushBean.setAlert("晕眩值已达100，将会强制被带走补充营养或是减轻晕眩值");
-                jiGuangPushService.pushAndroid(pushBean,serialNo);
+                jiGuangPushService.pushAndroid(pushBean, role.getId() + "");
             }
             role.setHalo(h);
             roleRepository.save(role);
@@ -221,7 +237,7 @@ public class RoleServiceImpl implements RoleService {
             Optional<Role> op = roleRepository.findById(id);
             Role role = op.get();
             Camp one = campRepository.getOne(role.getCamp());
-            BeanUtils.copyProperties(role,roleDto,"camp");
+            BeanUtils.copyProperties(role, roleDto, "camp");
             roleDto.setCampDesc(one.getDescription());
             return roleDto;
         } catch (Exception e) {
@@ -237,7 +253,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public void updateRoleVote(boolean isVote) {
         List<Role> all = roleRepository.findAll();
-        for (Role role : all){
+        for (Role role : all) {
             role.setVote(isVote);
             roleRepository.save(role);
         }
