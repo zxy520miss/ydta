@@ -20,4 +20,5 @@ public interface VoteService {
      * @return
      */
     List<StatisticsDto> vital(int round);
+
 }

@@ -10,6 +10,6 @@ public interface VoteRepository extends JpaRepository<Statistics, Integer>, JpaS
 
     List<Statistics> findAllByRound(Integer round);
 
-    Statistics findByRoleNameAndRound(String serialNo,int round);
+    Statistics findByRoleNameAndRound(String roleName,int round);
 
 }

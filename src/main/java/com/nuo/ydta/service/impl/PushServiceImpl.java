@@ -35,7 +35,6 @@ public class PushServiceImpl implements PushService {
         messagePush.setSender(StringUtils.isBlank(sender)?"系统":sender);
         messagePush.setRecipient(role.getName());
         messagePush.setRoleId(roleId);
-//        messagePush.setType(StringUtils.isBlank(type)?"SYSTEM":type);
         messagePush.setTitle(title);
 
         messageService.save(messagePush);
@@ -54,7 +53,6 @@ public class PushServiceImpl implements PushService {
         messagePush.setContent(content);
         messagePush.setSender("系统");
         messagePush.setRecipient("ALL");
-//        messagePush.setType(StringUtils.isBlank(type)?"SYSTEM":type);
         messagePush.setTitle(title);
         messagePush.setRoleId(-1);
         messageService.save(messagePush);

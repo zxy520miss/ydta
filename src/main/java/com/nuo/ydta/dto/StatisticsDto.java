@@ -15,6 +15,7 @@ public class StatisticsDto  implements Serializable {
 
     private String name;
     private int value;
+    private String users;
 
 
 }

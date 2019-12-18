@@ -15,10 +15,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @Controller
@@ -77,6 +75,26 @@ public class VoteController {
         if(round <= 0){
             Response.create(ProjectError.PARAM_VOTE_ROUND_IS_ERROR);
         }
+
+        List<StatisticsDto> lists = null;
+        try {
+            lists = voteService.vital(round);
+        } catch (Exception e) {
+            Response.create(ProjectError.VITAL_IS_ERROR);
+        }
+        return Response.create(lists);
+
+    }
+
+    /**
+     * 每轮投票详情
+     * @param round
+     * @return
+     */
+    @PostMapping("/vote/detail")
+    @ResponseBody
+    @ApiOperation("投票详情")
+    Response voteDetail(@RequestParam("round") int round){
 
         List<StatisticsDto> lists = null;
         try {
