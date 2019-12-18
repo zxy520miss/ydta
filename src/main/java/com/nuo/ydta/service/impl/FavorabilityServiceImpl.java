@@ -55,7 +55,6 @@ public class FavorabilityServiceImpl implements FavorabilityService {
             favorabilityRepository.save(rn);
 
             int count = 0;
-            List<RoleNpcDto> dtoList = Lists.newArrayList();
             List<RoleNpc> roleNpcs = favorabilityRepository.findByRoleName(roleName);
             for (RoleNpc roleNpc : roleNpcs) {
                 RoleNpcDto dto = new RoleNpcDto();
@@ -63,19 +62,11 @@ public class FavorabilityServiceImpl implements FavorabilityService {
                 BeanUtils.copyProperties(roleNpc, dto);
                 if (!dto.getNpcName().equals("周疆主")) {
                     if (dto.getFavorability() >= 90) {
-                        switch (dto.getNpcName()) {
-                            case "乔乔":
-                            case "姜良":
-                            case "寒星":
-                            case "薛瑞":
-                            case "倏":
-                            case "玉儿":
-                            case "天华":
-                                dto.setDesc("恭喜与" + dto.getNpcName() + "好感度已达90，可前往夏晗居接取义结金兰或百年好合任务");
-                                pushService.push("壹點探案---好感度", dto.getDesc(), roleNpc.getRoleId(), roleNpc.getNpcName());
-                                break;
-                            default:
-                                break;
+                        if(dto.getNpcName().equals("乔乔")||dto.getNpcName().equals("姜良")||dto.getNpcName().equals("寒星")||
+                                dto.getNpcName().equals("薛瑞")||dto.getNpcName().equals("倏")||dto.getNpcName().equals("玉儿")||
+                                dto.getNpcName().equals("天华")){
+                            dto.setDesc("恭喜与" + dto.getNpcName() + "好感度已达90，可前往夏晗居接取义结金兰或百年好合任务");
+                            pushService.push("壹點探案---好感度", dto.getDesc(), roleNpc.getRoleId(), roleNpc.getNpcName());
                         }
                     }
                 } else {
@@ -93,10 +84,12 @@ public class FavorabilityServiceImpl implements FavorabilityService {
                 if (dto.getNpcName().equals("乔乔")) {
                     if (dto.getFavorability() <= 10) {
                         dto.setDesc("警告与乔乔好感度已低至10，若与乔乔好感度继续下降，在百荟铺购买任意商品将支付两倍价格！");
+                        pushService.push("壹點探案---好感度", dto.getDesc(), roleNpc.getRoleId(), roleNpc.getNpcName());
                     } else if (dto.getFavorability() >= 80) {
                         dto.setDesc("恭喜与乔乔好感度已达80，可获得在百荟铺购买商品享受优惠的特权！");
+                        pushService.push("壹點探案---好感度", dto.getDesc(), roleNpc.getRoleId(), roleNpc.getNpcName());
                     }
-                    pushService.push("壹點探案---好感度", dto.getDesc(), roleNpc.getRoleId(), roleNpc.getNpcName());
+
                 }
 
                 if (dto.getNpcName().equals("薛瑞")) {
@@ -150,8 +143,6 @@ public class FavorabilityServiceImpl implements FavorabilityService {
                 if (!dto.getNpcName().equals("周疆主") && dto.getFavorability() >= 80) {
                     count++;
                 }
-
-                dtoList.add(dto);
             }
 
             if (count == 7) {
