@@ -25,9 +25,6 @@ public class FavorabilityServiceImpl implements FavorabilityService {
     private FavorabilityRepository favorabilityRepository;
 
     @Autowired
-    private JiGuangPushService jiGuangPushService;
-
-    @Autowired
     private PushService pushService;
 
     @Override

@@ -91,9 +91,6 @@ public Response add(@RequestBody Play play){
         if(play.getStage() <= 0){
             return Response.create(ProjectError.PARAM_PLAY_STAGE_IS_ERROR);
         }
-        if(play.getRoleId() <= 0){
-            return Response.create(ProjectError.PARAM_PLAY_ROLE_IS_ERROR);
-        }
         if(StringUtils.isBlank(play.getContent())){
             return Response.create(ProjectError.PARAM_PLAY_CONTENT_IS_ERROR);
         }
@@ -121,9 +118,6 @@ public Response add(@RequestBody Play play){
         }
         if(play.getStage() <= 0){
             return Response.create(ProjectError.PARAM_PLAY_STAGE_IS_ERROR);
-        }
-        if(play.getRoleId() <= 0){
-            return Response.create(ProjectError.PARAM_PLAY_ROLE_IS_ERROR);
         }
         if(StringUtils.isBlank(play.getContent())){
             return Response.create(ProjectError.PARAM_PLAY_CONTENT_IS_ERROR);
@@ -161,7 +155,6 @@ public Response add(@RequestBody Play play){
     @ResponseBody
     @ApiOperation("根据状和角色查询剧本")
     public Response findPlayByroleIdAndStatus(@RequestParam("roleId") int roleId){
-
 
         if(roleId <= 0){
             return Response.create(ProjectError.PARAM_ROLE_ID_IS_ERROR);

@@ -113,93 +113,48 @@ public class StageServiceImpl implements StageService {
             String msg = "";
             switch (id) {
                 case 2:
-                    msg = "找出杀害7冯律司的凶手";
-                    //                    String finalMsg1 = msg;
-//                    new Thread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            for(int i = 1;i<=16;i++){
-//                                if(i == 3){
-//                                    continue;
-//                                }
-//                                pushService.push(title, finalMsg1,i,"系统");
-//                            }
-//                        }
-//                    }).start();
+                    msg = "找出杀害冯律司的凶手";
                     pushService.pushAll(title, msg);
-
-
                     break;
                 case 3:
-                    msg = "客栈开放吃饭";
-                    pushService.pushAll(title, msg);
-                    break;
-                case 4:
-                    msg = "进行第1次投票，投出杀冯律司的凶手，5分钟之内请完成投票，否则视为弃票";
+                    msg = "投出杀冯律司的凶手，5分钟之内请完成投票，否则视为弃票";
                     pushService.pushAll(title, msg);
                     updateRoleVote(true);
                     voteTask();
                     break;
-                case 5:
+                case 4:
                     msg = "您回忆起了某些事！请查出杀害周疆主的凶手";
-                    String finalMsg = msg;
-                    //                    String finalMsg = msg;
-//                    new Thread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            for(int i = 1;i<=16;i++){
-//                                if(i == 15){
-//                                    continue;
-//                                }
-//                                pushService.push(title, finalMsg,i,"系统");
-//                            }
-//                        }
-//                    }).start();
+                    pushService.pushAll(title, msg);
+                    break;
+                case 5:
+                    msg = "您回忆起了某些事！请查出杀害第3为位死者的凶手";
                     pushService.pushAll(title, msg);
 
                     //根据阶段更新剧情表
                     break;
                 case 6:
-                    msg = "星焰、益寿堂、姜氏铁铺、百荟铺将会在22点30分打样";
+                    msg = "您回忆起了某些事！获得一次进入阵营的机会";
                     pushService.pushAll(title, msg);
                     break;
                 case 7:
-                    msg = "您回忆起了某些事！请查出杀害第3为位死者的凶手";
-                    pushService.pushAll(title, msg);
-                    break;
-                case 8:
-                    msg = "您回忆起了某些事！获得一次更换阵营的权利";
-                    pushService.pushAll(title, msg);
-                    break;
-                case 9:
-                    msg = "投出杀害周疆主的凶手，5分钟之内请完成投票，否则视为弃票";
+                    msg = "投出杀害第二位死者的凶手，5分钟之内请完成投票，否则视为弃票";
                     pushService.pushAll(title, msg);
                     updateRoleVote(true);
                     voteTask();
                     break;
-                case 10:
+                case 8:
                     msg = "投出杀死第3位死者的凶手，5分钟之内请完成投票，否则视为弃票";
                     pushService.pushAll(title, msg);
                     updateRoleVote(true);
                     voteTask();
                     break;
-                case 11:
+                case 9:
                     msg = "您回忆起了某些事!";
                     pushService.pushAll(title, msg);
                     break;
-                case 12:
-                    msg = "醉尘阁、夏晗居、星焰、益寿堂、姜氏铁铺、百荟铺开始营业!";
+                case 10:
+                    msg = "您回忆起了某些事!";
                     pushService.pushAll(title, msg);
-                    break;
-                case 13:
-                    msg = "您回忆起了某些事！请推选出新任疆主的任务!";
-                    pushService.pushAll(title, msg);
-                    break;
-                case 14:
-                    msg = "推选新任疆主，5分钟之内请完成投票，否则视为弃票!";
-                    pushService.pushAll(title, msg);
-                    updateRoleVote(true);
-                    voteTask();
                     break;
                 default:
                     break;
@@ -242,16 +197,14 @@ public class StageServiceImpl implements StageService {
     @Override
     public List<Stage> getStages() {
 
-        int[] ids = {5, 7, 8, 11, 13};
+        int[] ids = {4, 5, 6, 9, 10};
         List<Stage> list = stageRepository.findAllByIdIn(ids);
         return list;
     }
 
     @Override
     public Stage findLastStageByStatus(int status) {
-
         Stage stage = stageRepository.findTopByStatusOrderByIdDesc(status);
-
         return stage;
     }
 }

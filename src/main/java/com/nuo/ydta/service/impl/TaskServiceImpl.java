@@ -61,13 +61,13 @@ public class TaskServiceImpl implements TaskService {
         int[] roleIds = {0, roleId};
         taskList = taskRepository.findAllByStatusAndRoleIdIn(status, roleIds);
 
-        if(roleId == 3){
-            Task task = taskRepository.findByDescription("查出杀害冯律司的凶手");
-            taskList.remove(task);
-        }else if (roleId == 15){
-            Task task = taskRepository.findByDescription("查出杀害周疆主的凶手");
-            taskList.remove(task);
-        }
+//        if(roleId == 3){
+//            Task task = taskRepository.findByDescription("查出杀害冯律司的凶手");
+//            taskList.remove(task);
+//        }else if (roleId == 15){
+//            Task task = taskRepository.findByDescription("查出杀害周疆主的凶手");
+//            taskList.remove(task);
+//        }
         return taskList;
     }
 
