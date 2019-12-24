@@ -129,8 +129,6 @@ public class StageServiceImpl implements StageService {
                 case 5:
                     msg = "您回忆起了某些事！请查出杀害第3为位死者的凶手";
                     pushService.pushAll(title, msg);
-
-                    //根据阶段更新剧情表
                     break;
                 case 6:
                     msg = "您回忆起了某些事！获得一次进入阵营的机会";
