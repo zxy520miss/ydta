@@ -30,8 +30,8 @@ public class DbServiceImpl implements DbService {
             dbRepository.resetStatistics();
             dbRepository.resetRole();
             dbRepository.insertRole();
-            dbRepository.resetClew();
-            dbRepository.insertClew();
+//            dbRepository.resetClew();
+//            dbRepository.insertClew();
             dbRepository.resetPlay();
             dbRepository.resetTask();
             dbRepository.insertTask();

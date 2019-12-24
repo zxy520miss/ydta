@@ -207,14 +207,14 @@ public interface DbRepository extends JpaRepository<Clew,Integer>, JpaSpecificat
     void resetTask();
 
 
-    @Query(value = "INSERT INTO `ydta`.`nuo_task`(`id`, `createdTime`, `updatedTime`, `description`, `roleId`, `stageId`, `status`, `version`) VALUES (NULL, NULL, '2019-11-07 15:19:17', '查出杀害冯律司的凶手', 0, 2, 0, ''),\n" +
+    @Query(value = "INSERT INTO `ydta`.`nuo_task`(`id`, `createdTime`, `updatedTime`, `description`, `roleId`, `stageId`, `status`, `version`) VALUES \n" +
+            "(NULL, NULL, '2019-11-07 15:19:17', '查出杀害冯律司的凶手', 0, 2, 0, ''),\n" +
             "(NULL, NULL, '2019-11-07 15:36:41', '查出杀害周疆主的凶手', 0, 4, 0, ''),\n" +
             "(NULL, NULL, '2019-11-07 15:36:56', '查出杀害第三位死者的凶手', 0, 7, 0, ''),\n" +
-            "(NULL, NULL, '2019-11-07 15:39:56', '推选新人疆主的任务', 0, 14, 0, ''),\n" +
-            "(NULL, NULL, NULL, '凶手隐藏任务2', 0, 0, 0, ''),\n" +
-            "(NULL, NULL, NULL, '凶手隐藏任务2', 0, 0, 0, ''),\n" +
+            "(NULL, NULL, '2019-11-07 15:39:56', '隐瞒自己是杀害了冯律司的凶手', 3, 2, 0, ''),\n" +
+            "(NULL, NULL, NULL, '隐瞒自己是杀害了周疆主的凶手', 15, 4, 0, ''),\n" +
+            "(NULL, NULL, NULL, '隐瞒自己是杀害了第三具尸体的凶手', 9, 5, 0, ''),\n" +
             "(NULL, NULL, NULL, '找到周洲的线索', 10, 1, 1, ''),\n" +
-            "(NULL, NULL, NULL, '隐藏你是杀害冯律司的凶手', 3, 1, 1, NULL),\n" +
             "(NULL, NULL, NULL, '隐藏你是“黄帮”势力真实老大这件事', 8, 1, 1, NULL),\n" +
             "(NULL, NULL, NULL, '带上你的毒药，找寻没人看见的时机，去给周疆主的面具（夏晗居中）涂毒', 15, 1, 1, NULL),\n" +
             "(NULL, NULL, NULL, '待东窗事发之时，隐藏你是凶手的事情', 15, 1, 1, NULL),\n" +
