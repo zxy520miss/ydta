@@ -135,13 +135,13 @@ public class StageServiceImpl implements StageService {
                     pushService.pushAll(title, msg);
                     break;
                 case 7:
-                    msg = "投出杀害第二位死者的凶手，5分钟之内请完成投票，否则视为弃票";
+                    msg = "投出杀害小白的凶手，5分钟之内请完成投票，否则视为弃票";
                     pushService.pushAll(title, msg);
                     updateRoleVote(true);
                     voteTask();
                     break;
                 case 8:
-                    msg = "投出杀死第3位死者的凶手，5分钟之内请完成投票，否则视为弃票";
+                    msg = "投出杀害周疆主的凶手，5分钟之内请完成投票，否则视为弃票";
                     pushService.pushAll(title, msg);
                     updateRoleVote(true);
                     voteTask();
