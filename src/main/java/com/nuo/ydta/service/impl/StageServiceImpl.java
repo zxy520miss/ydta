@@ -117,17 +117,17 @@ public class StageServiceImpl implements StageService {
                     pushService.pushAll(title, msg);
                     break;
                 case 3:
-                    msg = "投出杀冯律司的凶手，5分钟之内请完成投票，否则视为弃票";
+                    msg = "投出杀冯律司的凶手，2分钟之内请完成投票，否则视为弃票";
                     pushService.pushAll(title, msg);
                     updateRoleVote(true);
                     voteTask();
                     break;
                 case 4:
-                    msg = "您回忆起了某些事！请查出杀害周疆主的凶手";
+                    msg = "您回忆起了某些事！请查出杀害小白的凶手";
                     pushService.pushAll(title, msg);
                     break;
                 case 5:
-                    msg = "您回忆起了某些事！请查出杀害第3为位死者的凶手";
+                    msg = "您回忆起了某些事！请查出杀害周疆主的凶手";
                     pushService.pushAll(title, msg);
                     break;
                 case 6:
@@ -135,13 +135,13 @@ public class StageServiceImpl implements StageService {
                     pushService.pushAll(title, msg);
                     break;
                 case 7:
-                    msg = "投出杀害小白的凶手，5分钟之内请完成投票，否则视为弃票";
+                    msg = "投出杀害小白的凶手，2分钟之内请完成投票，否则视为弃票";
                     pushService.pushAll(title, msg);
                     updateRoleVote(true);
                     voteTask();
                     break;
                 case 8:
-                    msg = "投出杀害周疆主的凶手，5分钟之内请完成投票，否则视为弃票";
+                    msg = "投出杀害周疆主的凶手，2分钟之内请完成投票，否则视为弃票";
                     pushService.pushAll(title, msg);
                     updateRoleVote(true);
                     voteTask();
@@ -183,7 +183,7 @@ public class StageServiceImpl implements StageService {
                 }
             }
         };
-        timer.schedule(task, 300000);
+        timer.schedule(task, 120000);
     }
 
     @Override

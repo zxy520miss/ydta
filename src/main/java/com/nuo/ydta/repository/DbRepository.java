@@ -24,16 +24,15 @@ public interface DbRepository extends JpaRepository<Clew,Integer>, JpaSpecificat
     @Modifying
     void resetRoelNpc();
 
-    @Query(value = "INSERT INTO `ydta`.`nuo_rolenpc`(`id`, `createdTime`, `updatedTime`, `version`, `favorability`, `npcId`, `roleId`, `npcName`, `roleName`)\n" +
-            "VALUES (1,  NULL, NULL, 'v1', 40, 1, 1, '玉儿', '胡青'),\n" +
-            "(2,  NULL, NULL, 'v1', 30, 1, 2, '玉儿', '姜亦'),\n" +
-            "(3,  NULL, NULL, 'v1', 30, 1, 3, '玉儿', '灵欢'),\n" +
-            "(4,  NULL, NULL, 'v1', 40, 1, 4, '玉儿', '蔡瑾'),\n" +
-            "(5,  NULL, NULL, 'v1', 40, 1, 5, '玉儿', '山望'),\n" +
-            "(6,  NULL, NULL, 'v1', 20, 1, 6, '玉儿', '璇儿'),\n" +
-            "(7,  NULL, NULL, 'v1', 30, 1, 7, '玉儿', '万福'),\n" +
-            "(8,  NULL, NULL, 'v1', 30, 1, 8, '玉儿', '姜城'),\n" +
-            "(9,  NULL, NULL, 'v1', 20, 1, 9, '玉儿', '叶舒'),\n" +
+    @Query(value = "INSERT INTO `ydta`.`nuo_rolenpc`(`id`, `createdTime`, `updatedTime`, `version`, `favorability`, `npcId`, `roleId`, `npcName`, `roleName`) VALUES (1, NULL, NULL, 'v1', 40, 1, 1, '玉儿', '胡青'),\n" +
+            "(2, NULL, NULL, 'v1', 30, 1, 2, '玉儿', '姜亦'),\n" +
+            "(3, NULL, NULL, 'v1', 30, 1, 3, '玉儿', '灵欢'),\n" +
+            "(4, NULL, NULL, 'v1', 40, 1, 4, '玉儿', '蔡瑾'),\n" +
+            "(5, NULL, NULL, 'v1', 40, 1, 5, '玉儿', '山望'),\n" +
+            "(6, NULL, NULL, 'v1', 60, 1, 6, '玉儿', '璇儿'),\n" +
+            "(7, NULL, NULL, 'v1', 40, 1, 7, '玉儿', '万福'),\n" +
+            "(8, NULL, NULL, 'v1', 30, 1, 8, '玉儿', '姜城'),\n" +
+            "(9, NULL, NULL, 'v1', 30, 1, 9, '玉儿', '叶舒'),\n" +
             "(10, NULL, NULL, 'v1', 20, 1, 10, '玉儿', '芒云'),\n" +
             "(11, NULL, NULL, 'v1', 50, 1, 11, '玉儿', '君君'),\n" +
             "(12, NULL, NULL, 'v1', 30, 1, 12, '玉儿', '灵心'),\n" +
@@ -65,7 +64,7 @@ public interface DbRepository extends JpaRepository<Clew,Integer>, JpaSpecificat
             "(38, NULL, NULL, 'v1', 30, 3, 6, '天华', '璇儿'),\n" +
             "(39, NULL, NULL, 'v1', 40, 3, 7, '天华', '万福'),\n" +
             "(40, NULL, NULL, 'v1', 30, 3, 8, '天华', '姜城'),\n" +
-            "(41, NULL, NULL, 'v1', 20, 3, 9, '天华', '叶舒'),\n" +
+            "(41, NULL, NULL, 'v1', 40, 3, 9, '天华', '叶舒'),\n" +
             "(42, NULL, NULL, 'v1', 20, 3, 10, '天华', '芒云'),\n" +
             "(43, NULL, NULL, 'v1', 30, 3, 11, '天华', '君君'),\n" +
             "(44, NULL, NULL, 'v1', 40, 3, 12, '天华', '灵心'),\n" +
@@ -81,11 +80,11 @@ public interface DbRepository extends JpaRepository<Clew,Integer>, JpaSpecificat
             "(54, NULL, NULL, 'v1', 30, 4, 6, '寒星', '璇儿'),\n" +
             "(55, NULL, NULL, 'v1', 50, 4, 7, '寒星', '万福'),\n" +
             "(56, NULL, NULL, 'v1', 30, 4, 8, '寒星', '姜城'),\n" +
-            "(57, NULL, NULL, 'v1', 40, 4, 9, '寒星', '叶舒'),\n" +
+            "(57, NULL, NULL, 'v1', 30, 4, 9, '寒星', '叶舒'),\n" +
             "(58, NULL, NULL, 'v1', 20, 4, 10, '寒星', '芒云'),\n" +
             "(59, NULL, NULL, 'v1', 30, 4, 11, '寒星', '君君'),\n" +
             "(60, NULL, NULL, 'v1', 30, 4, 12, '寒星', '灵心'),\n" +
-            "(61, NULL, NULL, 'v1', 40, 4, 13, '寒星', '宇文杰'),\n" +
+            "(61, NULL, NULL, 'v1', 10, 4, 13, '寒星', '宇文杰'),\n" +
             "(62, NULL, NULL, 'v1', 40, 4, 14, '寒星', '灵禾'),\n" +
             "(63, NULL, NULL, 'v1', 30, 4, 15, '寒星', '无惧'),\n" +
             "(64, NULL, NULL, 'v1', 30, 4, 16, '寒星', '芸娘'),\n" +
@@ -97,11 +96,11 @@ public interface DbRepository extends JpaRepository<Clew,Integer>, JpaSpecificat
             "(70, NULL, NULL, 'v1', 30, 5, 6, '薛瑞', '璇儿'),\n" +
             "(71, NULL, NULL, 'v1', 30, 5, 7, '薛瑞', '万福'),\n" +
             "(72, NULL, NULL, 'v1', 50, 5, 8, '薛瑞', '姜城'),\n" +
-            "(73, NULL, NULL, 'v1', 0, 5, 9, '薛瑞', '叶舒'),\n" +
+            "(73, NULL, NULL, 'v1', 10, 5, 9, '薛瑞', '叶舒'),\n" +
             "(74, NULL, NULL, 'v1', 20, 5, 10, '薛瑞', '芒云'),\n" +
             "(75, NULL, NULL, 'v1', 30, 5, 11, '薛瑞', '君君'),\n" +
             "(76, NULL, NULL, 'v1', 40, 5, 12, '薛瑞', '灵心'),\n" +
-            "(77, NULL, NULL, 'v1', 40, 5, 13, '薛瑞', '宇文杰'),\n" +
+            "(77, NULL, NULL, 'v1', 10, 5, 13, '薛瑞', '宇文杰'),\n" +
             "(78, NULL, NULL, 'v1', 40, 5, 14, '薛瑞', '灵禾'),\n" +
             "(79, NULL, NULL, 'v1', 30, 5, 15, '薛瑞', '无惧'),\n" +
             "(80, NULL, NULL, 'v1', 30, 5, 16, '薛瑞', '芸娘'),\n" +
@@ -110,10 +109,10 @@ public interface DbRepository extends JpaRepository<Clew,Integer>, JpaSpecificat
             "(83, NULL, NULL, 'v1', 30, 6, 3, '乔乔', '灵欢'),\n" +
             "(84, NULL, NULL, 'v1', 40, 6, 4, '乔乔', '蔡瑾'),\n" +
             "(85, NULL, NULL, 'v1', 30, 6, 5, '乔乔', '山望'),\n" +
-            "(86, NULL, NULL, 'v1', 30, 6, 6, '乔乔', '璇儿'),\n" +
+            "(86, NULL, NULL, 'v1', 40, 6, 6, '乔乔', '璇儿'),\n" +
             "(87, NULL, NULL, 'v1', 30, 6, 7, '乔乔', '万福'),\n" +
             "(88, NULL, NULL, 'v1', 40, 6, 8, '乔乔', '姜城'),\n" +
-            "(89, NULL, NULL, 'v1', 0, 6, 9, '乔乔', '叶舒'),\n" +
+            "(89, NULL, NULL, 'v1', 10, 6, 9, '乔乔', '叶舒'),\n" +
             "(90, NULL, NULL, 'v1', 40, 6, 10, '乔乔', '芒云'),\n" +
             "(91, NULL, NULL, 'v1', 30, 6, 11, '乔乔', '君君'),\n" +
             "(92, NULL, NULL, 'v1', 30, 6, 12, '乔乔', '灵心'),\n" +
@@ -124,35 +123,35 @@ public interface DbRepository extends JpaRepository<Clew,Integer>, JpaSpecificat
             "(97, NULL, NULL, 'v1', 30, 7, 1, '姜良', '胡青'),\n" +
             "(98, NULL, NULL, 'v1', 50, 7, 2, '姜良', '姜亦'),\n" +
             "(99, NULL, NULL, 'v1', 40, 7, 3, '姜良', '灵欢'),\n" +
-            "(100,NULL, NULL, 'v1', 30, 7, 4, '姜良', '蔡瑾'),\n" +
-            "(101,NULL, NULL, 'v1', 30, 7, 5, '姜良', '山望'),\n" +
-            "(102,NULL, NULL, 'v1', 30, 7, 6, '姜良', '璇儿'),\n" +
-            "(103,NULL, NULL, 'v1', 30, 7, 7, '姜良', '万福'),\n" +
-            "(104,NULL, NULL, 'v1', 20, 7, 8, '姜良', '姜城'),\n" +
-            "(105,NULL, NULL, 'v1', 20, 7, 9, '姜良', '叶舒'),\n" +
-            "(106,NULL, NULL, 'v1', 50, 7, 10, '姜良', '芒云'),\n" +
-            "(107,NULL, NULL, 'v1', 30, 7, 11, '姜良', '君君'),\n" +
-            "(108,NULL, NULL, 'v1', 30, 7, 12, '姜良', '灵心'),\n" +
-            "(109,NULL, NULL, 'v1', 30, 7, 13, '姜良', '宇文杰'),\n" +
-            "(110,NULL, NULL, 'v1', 30, 7, 14, '姜良', '灵禾'),\n" +
-            "(111,NULL, NULL, 'v1', 30, 7, 15, '姜良', '无惧'),\n" +
-            "(112,NULL, NULL, 'v1', 30, 7, 16, '姜良', '芸娘'),\n" +
-            "(113,NULL, NULL, 'v1', 40, 8, 1, '周疆主', '胡青'),\n" +
-            "(114,NULL, NULL, 'v1', 40, 8, 2, '周疆主', '姜亦'),\n" +
-            "(115,NULL, NULL, 'v1', 30, 8, 3, '周疆主', '灵欢'),\n" +
-            "(116,NULL, NULL, 'v1', 30, 8, 4, '周疆主', '蔡瑾'),\n" +
-            "(117,NULL, NULL, 'v1', 10, 8, 5, '周疆主', '山望'),\n" +
-            "(118,NULL, NULL, 'v1', 30, 8, 6, '周疆主', '璇儿'),\n" +
-            "(119,NULL, NULL, 'v1', 30, 8, 7, '周疆主', '万福'),\n" +
-            "(120,NULL, NULL, 'v1', 50, 8, 8, '周疆主', '姜城'),\n" +
-            "(121,NULL, NULL, 'v1', 20, 8, 9, '周疆主', '叶舒'),\n" +
-            "(122,NULL, NULL, 'v1', 80, 8, 10, '周疆主', '芒云'),\n" +
-            "(123,NULL, NULL, 'v1', 30, 8, 11, '周疆主', '君君'),\n" +
-            "(124,NULL, NULL, 'v1', 70, 8, 12, '周疆主', '灵心'),\n" +
-            "(125,NULL, NULL, 'v1', 50, 8, 13, '周疆主', '宇文杰'),\n" +
-            "(126,NULL, NULL, 'v1', 30, 8, 14, '周疆主', '灵禾'),\n" +
-            "(127,NULL, NULL, 'v1', 30, 8, 15, '周疆主', '无惧'),\n" +
-            "(128,NULL, NULL, 'v1', 30, 8, 16, '周疆主', '芸娘');", nativeQuery = true)
+            "(100, NULL, NULL, 'v1', 30, 7, 4, '姜良', '蔡瑾'),\n" +
+            "(101, NULL, NULL, 'v1', 30, 7, 5, '姜良', '山望'),\n" +
+            "(102, NULL, NULL, 'v1', 30, 7, 6, '姜良', '璇儿'),\n" +
+            "(103, NULL, NULL, 'v1', 30, 7, 7, '姜良', '万福'),\n" +
+            "(104, NULL, NULL, 'v1', 20, 7, 8, '姜良', '姜城'),\n" +
+            "(105, NULL, NULL, 'v1', 20, 7, 9, '姜良', '叶舒'),\n" +
+            "(106, NULL, NULL, 'v1', 50, 7, 10, '姜良', '芒云'),\n" +
+            "(107, NULL, NULL, 'v1', 30, 7, 11, '姜良', '君君'),\n" +
+            "(108, NULL, NULL, 'v1', 30, 7, 12, '姜良', '灵心'),\n" +
+            "(109, NULL, NULL, 'v1', 30, 7, 13, '姜良', '宇文杰'),\n" +
+            "(110, NULL, NULL, 'v1', 30, 7, 14, '姜良', '灵禾'),\n" +
+            "(111, NULL, NULL, 'v1', 30, 7, 15, '姜良', '无惧'),\n" +
+            "(112, NULL, NULL, 'v1', 30, 7, 16, '姜良', '芸娘'),\n" +
+            "(113, NULL, NULL, 'v1', 40, 8, 1, '周疆主', '胡青'),\n" +
+            "(114, NULL, NULL, 'v1', 40, 8, 2, '周疆主', '姜亦'),\n" +
+            "(115, NULL, NULL, 'v1', 30, 8, 3, '周疆主', '灵欢'),\n" +
+            "(116, NULL, NULL, 'v1', 30, 8, 4, '周疆主', '蔡瑾'),\n" +
+            "(117, NULL, NULL, 'v1', 10, 8, 5, '周疆主', '山望'),\n" +
+            "(118, NULL, NULL, 'v1', 30, 8, 6, '周疆主', '璇儿'),\n" +
+            "(119, NULL, NULL, 'v1', 30, 8, 7, '周疆主', '万福'),\n" +
+            "(120, NULL, NULL, 'v1', 50, 8, 8, '周疆主', '姜城'),\n" +
+            "(121, NULL, NULL, 'v1', 20, 8, 9, '周疆主', '叶舒'),\n" +
+            "(122, NULL, NULL, 'v1', 80, 8, 10, '周疆主', '芒云'),\n" +
+            "(123, NULL, NULL, 'v1', 30, 8, 11, '周疆主', '君君'),\n" +
+            "(124, NULL, NULL, 'v1', 70, 8, 12, '周疆主', '灵心'),\n" +
+            "(125, NULL, NULL, 'v1', 50, 8, 13, '周疆主', '宇文杰'),\n" +
+            "(126, NULL, NULL, 'v1', 30, 8, 14, '周疆主', '灵禾'),\n" +
+            "(127, NULL, NULL, 'v1', 30, 8, 15, '周疆主', '无惧'),\n" +
+            "(128, NULL, NULL, 'v1', 30, 8, 16, '周疆主', '芸娘');", nativeQuery = true)
     @Modifying
     void insertRoleNpc();
 
@@ -217,7 +216,7 @@ public interface DbRepository extends JpaRepository<Clew,Integer>, JpaSpecificat
             "(NULL, NULL, NULL, '做出阵营的抉择', 0, 6, 0, ''),\n" +
             "(NULL, NULL, NULL, '继续调查凶手', 0, 6, 0, ''),\n" +
             "(NULL, NULL, NULL, '隐藏无惧是你的内应一事', 12, 1, 1, NULL),\n" +
-            "(NULL, NULL, NULL, '找到周容的线索', 10, 1, 1, NULL),\n" +
+            "(NULL, NULL, NULL, '找到周容的线索,并隐藏你的黎族身份', 10, 1, 1, NULL),\n" +
             "(NULL, NULL, NULL, '为了报恩，找到黑风师傅提到的身上有花朵印记的女子，并找到解救她的办法', 14, 1, 1, ''),\n" +
             "(NULL, NULL, NULL, '隐藏你是仿造圣器碎片之人的事情', 7, 1, 1, NULL),\n" +
             "(NULL, NULL, NULL, '隐藏娘亲是青楼女子一事', 13, 1, 1, NULL),\n" +
