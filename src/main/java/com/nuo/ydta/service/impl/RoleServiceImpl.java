@@ -11,6 +11,7 @@ import com.nuo.ydta.repository.CampRepository;
 import com.nuo.ydta.repository.RoleRepository;
 import com.nuo.ydta.repository.StageRepository;
 import com.nuo.ydta.service.JiGuangPushService;
+import com.nuo.ydta.service.PushService;
 import com.nuo.ydta.service.RoleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -38,7 +39,7 @@ public class RoleServiceImpl implements RoleService {
     private StageRepository stageRepository;
 
     @Autowired
-    private JiGuangPushService jiGuangPushService;
+    private PushService pusHService;
 
     @Override
     public String findRoleBySerialNoAndStatus(String serialNo, Integer status) {
@@ -138,26 +139,17 @@ public class RoleServiceImpl implements RoleService {
             }
 
             if (susp >= 40 && susp <= 80) {
-                PushBean pushBean = new PushBean();
-                pushBean.setTitle("壹點探案-嫌疑值");
-                pushBean.setAlert("嫌疑值已达40，您的嫌疑值正在上升哦！");
-                jiGuangPushService.pushAndroid(pushBean, role.getId() + "");
+                pusHService.push("壹點探案-嫌疑值","您的嫌疑值正在上升哦！",role.getId(),"系统");
             }
 
             if (susp >= 80 && susp != 100) {
-
-                PushBean pushBean = new PushBean();
-                pushBean.setTitle("壹點探案-嫌疑值");
-                pushBean.setAlert("嫌疑值已达80，若嫌疑值持续上升，将面临入狱风险！");
-                jiGuangPushService.pushAndroid(pushBean, role.getId() + "");
+                pusHService.push("壹點探案-嫌疑值","嫌疑值已达80，若嫌疑值持续上升，将面临入狱风险！",role.getId(),"系统");
             }
 
             if (susp == 100) {
 
-                PushBean pushBean = new PushBean();
-                pushBean.setTitle("壹點探案-嫌疑值");
-                pushBean.setAlert("嫌疑值已达100，狱卒即刻来押送你进入大牢！");
-                jiGuangPushService.pushAndroid(pushBean, role.getId() + "");
+                pusHService.push("壹點探案-嫌疑值","嫌疑值已达100，狱卒即刻来押送你进入大牢！",role.getId(),"系统");
+
             }
             role.setSuspicion(susp);
             roleRepository.save(role);
@@ -182,19 +174,18 @@ public class RoleServiceImpl implements RoleService {
             if (h < 0) {
                 h = 0;
             }
-            if (h >= 60 && h != 100) {
+            if (h >= 40 && h <= 80) {
                 //todo:眩晕值推送
-                PushBean pushBean = new PushBean();
-                pushBean.setTitle("壹點探案-眩晕值");
-                pushBean.setAlert("晕眩值已达60，若不及时进食补充营养或是减轻晕眩值可能会造成更严重的后果哦");
-                jiGuangPushService.pushAndroid(pushBean, role.getId() + "");
+                pusHService.push("壹點探案-眩晕值","您的眩晕值正在上升哦！",role.getId(),"系统");
+            }
+
+            if (h >= 80 && h != 100) {
+                //todo:眩晕值推送
+                pusHService.push("壹點探案-眩晕值","晕眩值已达80，若眩晕值持续上升，将面被强制带着补充营养的风险！",role.getId(),"系统");
             }
             if (h == 100) {
                 //todo:眩晕值推送
-                PushBean pushBean = new PushBean();
-                pushBean.setTitle("壹點探案-眩晕值");
-                pushBean.setAlert("晕眩值已达100，将会强制被带走补充营养或是减轻晕眩值");
-                jiGuangPushService.pushAndroid(pushBean, role.getId() + "");
+                pusHService.push("壹點探案-眩晕值","晕眩值已达100，将会强制被带走补充营养或是减轻晕眩值！",role.getId(),"系统");
             }
             role.setHalo(h);
             roleRepository.save(role);
