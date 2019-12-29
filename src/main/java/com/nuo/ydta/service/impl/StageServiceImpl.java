@@ -114,45 +114,45 @@ public class StageServiceImpl implements StageService {
             switch (id) {
                 case 2:
                     msg = "找出杀害冯律司的凶手";
-                    pushService.pushAll(title, msg);
+                    pushService.pushAll(title, msg,null);
                     break;
                 case 3:
                     msg = "投出杀冯律司的凶手，2分钟之内请完成投票，否则视为弃票";
-                    pushService.pushAll(title, msg);
+                    pushService.pushAll(title, msg,null);
                     updateRoleVote(true);
                     voteTask();
                     break;
                 case 4:
                     msg = "您回忆起了某些事！请查出杀害小白的凶手";
-                    pushService.pushAll(title, msg);
+                    pushService.pushAll(title, msg,null);
                     break;
                 case 5:
                     msg = "您回忆起了某些事！请查出杀害周疆主的凶手";
-                    pushService.pushAll(title, msg);
+                    pushService.pushAll(title, msg,null);
                     break;
                 case 6:
                     msg = "您回忆起了某些事！获得一次进入阵营的机会";
-                    pushService.pushAll(title, msg);
+                    pushService.pushAll(title, msg,null);
                     break;
                 case 7:
                     msg = "投出杀害小白的凶手，2分钟之内请完成投票，否则视为弃票";
-                    pushService.pushAll(title, msg);
+                    pushService.pushAll(title, msg,null);
                     updateRoleVote(true);
                     voteTask();
                     break;
                 case 8:
                     msg = "投出杀害周疆主的凶手，2分钟之内请完成投票，否则视为弃票";
-                    pushService.pushAll(title, msg);
+                    pushService.pushAll(title, msg,null);
                     updateRoleVote(true);
                     voteTask();
                     break;
                 case 9:
                     msg = "您回忆起了某些事!";
-                    pushService.pushAll(title, msg);
+                    pushService.pushAll(title, msg,null);
                     break;
                 case 10:
                     msg = "您回忆起了某些事!";
-                    pushService.pushAll(title, msg);
+                    pushService.pushAll(title, msg,null);
                     break;
                 default:
                     break;
@@ -174,7 +174,7 @@ public class StageServiceImpl implements StageService {
                 log.debug("开始计时 -> {}", System.currentTimeMillis());
                 try {
                     updateRoleVote(false);
-                    pushService.pushAll("壹點探案", "如果你投票成功，请忽略这条消息;如果您没有进行投票，视为弃票");
+                    pushService.pushAll("壹點探案", "如果你投票成功，请忽略这条消息;如果您没有进行投票，视为弃票",null);
                 } catch (Exception e) {
                     throw e;
                 } finally {

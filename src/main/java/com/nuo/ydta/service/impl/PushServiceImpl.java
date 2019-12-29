@@ -47,11 +47,11 @@ public class PushServiceImpl implements PushService {
     }
 
     @Override
-    public Boolean pushAll(String title, String content) {
+    public Boolean pushAll(String title, String content,String sender) {
 
         MessagePush messagePush = new MessagePush();
         messagePush.setContent(content);
-        messagePush.setSender("系统");
+        messagePush.setSender(StringUtils.isBlank(sender)? "系统": sender);
         messagePush.setRecipient("ALL");
         messagePush.setTitle(title);
         messagePush.setRoleId(-1);
