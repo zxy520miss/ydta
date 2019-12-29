@@ -209,24 +209,29 @@ public interface DbRepository extends JpaRepository<Clew,Integer>, JpaSpecificat
 
     @Query(value = "INSERT INTO `ydta`.`nuo_task`(`id`, `createdTime`, `updatedTime`, `description`, `roleId`, `stageId`, `status`, `version`) VALUES \n" +
             "(NULL, NULL, '2019-11-07 15:19:17', '查出杀害冯律司的凶手', 0, 2, 0, ''),\n" +
-            "(NULL, NULL, '2019-11-07 15:36:41', '查出杀害周疆主的凶手', 0, 4, 0, ''),\n" +
-            "(NULL, NULL, '2019-11-07 15:36:56', '查出杀害第三位死者的凶手', 0, 7, 0, ''),\n" +
-            "(NULL, NULL, '2019-11-07 15:39:56', '隐瞒自己是杀害了冯律司的凶手', 3, 2, 0, ''),\n" +
-            "(NULL, NULL, NULL, '隐瞒自己是杀害了周疆主的凶手', 15, 4, 0, ''),\n" +
-            "(NULL, NULL, NULL, '隐瞒自己是杀害了第三具尸体的凶手', 9, 5, 0, ''),\n" +
-            "(NULL, NULL, NULL, '找到周洲的线索', 10, 1, 1, ''),\n" +
+            "(NULL, NULL, '2019-11-07 15:36:41', '查出杀害小白的凶手', 0, 4, 0, ''),\n" +
+            "(NULL, NULL, '2019-11-07 15:36:56', '查出杀害周疆主的凶手 ', 0, 5, 0, ''),\n" +
+            "(NULL, NULL, NULL, '全程隐藏自己是杀害小白的凶手一事', 15, 4, 0, ''),\n" +
+            "(NULL, NULL, NULL, '尽量获得更多的圣器碎片真迹', 0, 9, 0, ''),\n" +
+            "(NULL, NULL, NULL, '尽量先人一步集齐圣器碎片', 0, 6, 0, ''),\n" +
+            "(NULL, NULL, NULL, '做出阵营的抉择', 0, 6, 0, ''),\n" +
+            "(NULL, NULL, NULL, '继续调查凶手', 0, 6, 0, ''),\n" +
+            "(NULL, NULL, NULL, '隐藏无惧是你的内应一事', 12, 1, 1, NULL),\n" +
+            "(NULL, NULL, NULL, '找到周容的线索', 10, 1, 1, NULL),\n" +
+            "(NULL, NULL, NULL, '为了报恩，找到黑风师傅提到的身上有花朵印记的女子，并找到解救她的办法', 14, 1, 1, ''),\n" +
+            "(NULL, NULL, NULL, '隐藏你是仿造圣器碎片之人的事情', 7, 1, 1, NULL),\n" +
+            "(NULL, NULL, NULL, '隐藏娘亲是青楼女子一事', 13, 1, 1, NULL),\n" +
+            "(NULL, NULL, NULL, '隐藏你在周容事件中撒谎而害了山望一事', 1, 1, 1, NULL),\n" +
+            "(NULL, NULL, NULL, '尽量协助山望找到周容下落', 16, 1, 1, NULL),\n" +
+            "(NULL, NULL, NULL, '全程隐藏你是杀害冯律司的凶手', 3, 1, 1, NULL),\n" +
             "(NULL, NULL, NULL, '隐藏你是“黄帮”势力真实老大这件事', 8, 1, 1, NULL),\n" +
-            "(NULL, NULL, NULL, '带上你的毒药，找寻没人看见的时机，去给周疆主的面具（夏晗居中）涂毒', 15, 1, 1, NULL),\n" +
-            "(NULL, NULL, NULL, '待东窗事发之时，隐藏你是凶手的事情', 15, 1, 1, NULL),\n" +
-            "(NULL, NULL, NULL, '前往暗室，完成你密谋的最后一步，将你仿造的物件放在乐坊的暗室中，等待周疆主前往；', 9, 1, 1, NULL),\n" +
-            "(NULL, NULL, NULL, '待东窗事发之时，隐藏你是凶手的事情', 9, 1, 1, NULL),\n" +
-            "(NULL, NULL, NULL, '完成寒星的要求，从而获得一次她的祝福', 10, 11, 0, ''),\n" +
-            "(NULL, NULL, NULL, '尽量让己方势力财力保持最多', 10, 11, 0, ''),\n" +
-            "(NULL, NULL, NULL, '己方势力不可有细作', 10, 11, 0, ''),\n" +
-            "(NULL, NULL, NULL, '尽量让己方势力人数占多', 10, 11, 0, ''),\n" +
-            "(NULL, NULL, NULL, '尽量先人一步集齐圣器碎', 10, 8, 0, ''),\n" +
-            "(NULL, NULL, NULL, '做出阵营的抉择', 10, 8, 0, ''),\n" +
-            "(NULL, NULL, NULL, '继续调查凶手', 10, 8, 0, '');", nativeQuery = true)
+            "(NULL, NULL, NULL, '隐藏你是当年写匿名举报信的人之事', 2, 1, 1, NULL),\n" +
+            "(NULL, NULL, NULL, '找到周容的下落', 5, 1, 1, NULL),\n" +
+            "(NULL, NULL, NULL, '尽量协助山望找到周容下落', 6, 1, 1, NULL),\n" +
+            "(NULL, NULL, NULL, '隐藏你的黎族身份', 11, 1, 1, NULL),\n" +
+            "(NULL, NULL, NULL, '隐藏你是当年纵火之人，逃避通缉', 4, 1, 1, NULL),\n" +
+            "(NULL, NULL, NULL, '隐藏你是灵心留在夏族的内应一事', 15, 1, 1, NULL),\n" +
+            "(NULL, NULL, NULL, '隐藏你在密室设置了行凶机关一事，如果东窗事发，全程隐藏你是凶手一事', 9, 1, 1, NULL);", nativeQuery = true)
     @Modifying
     void insertTask();
 
