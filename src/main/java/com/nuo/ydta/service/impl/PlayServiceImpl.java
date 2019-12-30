@@ -53,7 +53,7 @@ public class PlayServiceImpl implements PlayService {
 
     @Override
     public List<Play> findAllByStatusAndRoleId(int status, int roleId) {
-        List<Play> playList = playRepository.findAllByStatusAndRoleId(status, roleId);
+        List<Play> playList = playRepository.findAllByStatusAndRoleIdOrderByStageAsc(status, roleId);
         return playList;
     }
 

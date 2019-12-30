@@ -20,6 +20,9 @@ public class NpcServiceImpl implements NpcService {
     public List<Npc> getNpcs() {
         try {
             List<Npc> list = npcRepository.findAll();
+            Npc npc = new Npc();
+            npc.setName("系统");
+            list.add(npc);
             return list;
         } catch (Exception e) {
             throw new BusinessException(e);

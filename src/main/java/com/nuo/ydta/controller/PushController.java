@@ -40,9 +40,14 @@ public class PushController {
             throw new BaseBusinessException(ProjectError.PARAM_IS_ERROR);
         }
 
-        Boolean flag = pushService.pushAll(pushDto.getTitle(), pushDto.getContent());
+        if(StringUtils.isBlank(pushDto.getSender())){
+            throw new BaseBusinessException(ProjectError.PARAM_IS_ERROR);
+        }
+
+        Boolean flag = pushService.pushAll(pushDto.getTitle(), pushDto.getContent(),pushDto.getSender());
         return Response.create(flag);
     }
+
 
     /**
      * 单独对regId进行推送

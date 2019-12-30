@@ -10,6 +10,6 @@ public interface PlayRepository extends JpaRepository<Play, Integer>, JpaSpecifi
 
     List<Play> findAllByStage(int stage);
 
-    List<Play> findAllByStatusAndRoleId(int status ,int roleId);
+    List<Play> findAllByStatusAndRoleIdOrderByStageAsc(int status ,int roleId);
 
 }
