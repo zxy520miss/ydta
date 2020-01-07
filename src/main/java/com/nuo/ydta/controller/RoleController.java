@@ -63,7 +63,7 @@ public class RoleController {
     @ResponseBody
     @ApiOperation("获取单个角色")
     public Response getRoleById(@RequestParam("serialNo") String serialNo) {
-        log.info("serialNo -> {}",serialNo);
+        log.info("serialNo -> {}", serialNo);
         if (StringUtils.isBlank(serialNo)) {
             return Response.create(ProjectError.PARAM_SERIALNO_IS_ERROR);
         }
@@ -91,7 +91,7 @@ public class RoleController {
         if (StringUtils.isBlank(role.getPlay())) {
             return Response.create(ProjectError.PARAM_PLAY_IS_ERROR);
         }
-        if (role.getCamp() <= 0) {
+        if (role.getCamp() < 0) {
             return Response.create(ProjectError.PARAM_CAMP_IS_ERROR);
         }
         if (StringUtils.isBlank(role.getName())) {
