@@ -29,16 +29,16 @@ public class VoteServiceImpl implements VoteService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void vote(Statistics statistics) {
+    public synchronized void vote(Statistics statistics) {
 
-        Statistics s = voteRepository.findByRoleNameAndRound(statistics.getRoleName(),statistics.getRound());
+        Statistics s = voteRepository.findByRoleNameAndRound(statistics.getRoleName(), statistics.getRound());
         Role role = roleRepository.findRoleBySerialNo(statistics.getSerialNo());
 
-        if(s != null){
-            s.setPoll(s.getPoll()+1);
-            s.setSerialNo(s.getSerialNo()+","+role.getName());
+        if (s != null) {
+            s.setPoll(s.getPoll() + 1);
+            s.setSerialNo(s.getSerialNo() + "," + role.getName());
             voteRepository.save(s);
-        }else {
+        } else {
             statistics.setPoll(1);
             statistics.setSerialNo(role.getName());
             voteRepository.save(statistics);
@@ -54,9 +54,9 @@ public class VoteServiceImpl implements VoteService {
 
         List<StatisticsDto> dtoList = Lists.newArrayList();
 
-        List<Statistics> lists  = voteRepository.findAllByRound(round);
+        List<Statistics> lists = voteRepository.findAllByRound(round);
 
-        for (Statistics s : lists){
+        for (Statistics s : lists) {
 
             StatisticsDto dto = new StatisticsDto();
             dto.setName(s.getRoleName());
