@@ -254,7 +254,8 @@ public interface DbRepository extends JpaRepository<Clew,Integer>, JpaSpecificat
             "(45, NULL, NULL, '同灵心接头，共同找寻圣器碎片的下落', 15, 1, 1, NULL),\n" +
             "(46, NULL, NULL, '调查自己的身世之谜', 15, 1, 1, NULL),\n" +
             "(47, NULL, NULL, '在晚饭前，将你准备好的圣器碎片私下交给周疆主，让他能顺利在初戌之时前往密室触发机关（若玩家没有亲手操作，也将视为操作，会有NPC前来帮助），如果东窗事发，全程隐藏你是凶手一事', 9, 1, 1, NULL),\n" +
-            "(48, NULL, NULL, '在你认为合适的时机，可以选择向芸娘表露心意，获得一纸婚书', 9, 1, 1, NULL);", nativeQuery = true)
+            "(48, NULL, NULL, '在你认为合适的时机，可以选择向芸娘表露心意，获得一纸婚书', 9, 1, 1, NULL),\n" +
+            "(49, NULL, NULL, '隐藏你是谋害万静的真凶一事', 8, 1, 1, NULL);", nativeQuery = true)
     @Modifying
     void insertTask();
 
