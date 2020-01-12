@@ -168,6 +168,26 @@ public interface DbRepository extends JpaRepository<Clew,Integer>, JpaSpecificat
     @Modifying
     void insertRole();
 
+    @Query(value = "UPDATE nuo_role set camp = 0 where id in (1,2,3,4,5,6,9,10,13,14,16)" ,nativeQuery = true)
+    @Modifying
+    void  updateCamp();
+
+    @Query(value = "UPDATE nuo_role set camp = 3 where id in (8,15)" ,nativeQuery = true)
+    @Modifying
+    void  updateCamp1();
+
+    @Query(value = "UPDATE nuo_role set camp = 1 where id = 7" ,nativeQuery = true)
+    @Modifying
+    void  updateCamp2();
+
+    @Query(value = "UPDATE nuo_role set camp = 2 where id = 11" ,nativeQuery = true)
+    @Modifying
+    void  updateCamp3();
+
+    @Query(value = "UPDATE nuo_role set camp = 4 where id = 12" ,nativeQuery = true)
+    @Modifying
+    void  updateCamp4();
+
     @Query(value = "truncate table nuo_clew;", nativeQuery = true)
     @Modifying
     void resetClew();

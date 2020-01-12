@@ -30,11 +30,17 @@ public class DbServiceImpl implements DbService {
             dbRepository.resetStatistics();
             dbRepository.resetRole();
             dbRepository.insertRole();
+            dbRepository.updateCamp();
+            dbRepository.updateCamp1();
+            dbRepository.updateCamp2();
+            dbRepository.updateCamp3();
+            dbRepository.updateCamp4();
 //            dbRepository.resetClew();
 //            dbRepository.insertClew();
             dbRepository.resetPlay();
             dbRepository.resetTask();
             dbRepository.insertTask();
+
         } catch (Exception e) {
             throw new BusinessException(e);
         }
